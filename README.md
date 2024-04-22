@@ -73,7 +73,7 @@ When updated source code was used, indicate the date the source code was updated
 <summary>Digital Signature-Env1-O3 Table (Unit: clock cycles)</summary>
  
     
-|Algorithm     		|  Keygen(Avr.)			| Encapsulation(Avr.) 	| Decapsulation(Avr.)	|
+|Algorithm     		|  Keygen(Avr.)			| Sign(Avr.) 	| Verify(Avr.)	|
 |-------------: 	| -------------: 		| -------------:		| -------------:		|
 |HAETAE-2			            | 1,086,829 		 	| 5,639,462 				| 160,377 		 		| 
 |HAETAE-3			            | 1,897,209		 		| 1,070,599 				| 276,481 		 		| 
@@ -124,7 +124,7 @@ When updated source code was used, indicate the date the source code was updated
 <summary>Digital Signature-Env2-O3 Table (Unit: clock cycles)</summary>
  
     
-|Algorithm     		|  Keygen(Avr.)			| Encapsulation(Avr.) 	| Decapsulation(Avr.)	|
+|Algorithm     		|  Keygen(Avr.)			| Sign(Avr.) 	| Verify(Avr.)	|
 |-------------: 	| -------------: 		| -------------:		| -------------:		|
 |HAETAE-2			            | 863,297 		 	  | 2,670,407 				| 136,342 		 		| 
 |HAETAE-3			            | 1,803,954		 		| 2,138,297				  | 238,286 		 		| 
