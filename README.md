@@ -27,7 +27,7 @@ When updated source code was used, indicate the date the source code was updated
 
 ## Benchmark result
 ### Testing Environment1
-* OS: Ubuntu 23.01
+* OS: Ubuntu 23.10.1
 * CPU: Ryzen 7 4800H (2.90 GHz)
 * RAM: 16GB
 * Compiler: gcc 13.2.0
