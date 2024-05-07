@@ -25,7 +25,7 @@ When updated source code was used, indicate the date the source code was updated
 3. MQSign: Round 2 Submission.
 4. NCCSign: Round 2 Submission.
 
-## Benchmark result
+## Benchmark clean result
 ### Testing Environment1
 * OS: Ubuntu 23.10.1
 * CPU: Ryzen 7 4800H (2.90 GHz)
