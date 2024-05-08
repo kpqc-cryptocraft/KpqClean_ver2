@@ -64,9 +64,11 @@ static int PQC_bench(void)
         dcycles += cycles2-cycles1;
 	}
 
+    printf("Encrypt /////////////////////////////////////// \n");
     printf("  ENC    runs in ................. %8lld cycles", ecycles/TEST_LOOP);
     printf("\n"); 
 
+    printf("Encrypt Open /////////////////////////////////////// \n");
     printf("  DEC    runs in ................. %8lld cycles", dcycles/TEST_LOOP);
     printf("\n"); 
 

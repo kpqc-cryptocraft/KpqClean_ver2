@@ -2,7 +2,7 @@
  * for Sphincs+ (https://github.com/sphincs/sphincsplus/pull/14/),
  * but uses vpshufb for byte-granular rotations as in the Keccak Code Package. */
 
-#include "fips202x4.h"
+#include "keccakx4_vec.h"
 
 .data
 .p2align 5
