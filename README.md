@@ -158,7 +158,7 @@ AIMer and MQ-Sign will be uploaded later.
 * Compiler: gcc 13.2.0
 * Optimization Level: -O3
 
-* ### Testing Environment3
+* ### Testing Environment2
 * OS: Ubuntu 23.10.1
 * CPU: Intel i5-8259U (2.30 GHz)
 * RAM: 16GB
