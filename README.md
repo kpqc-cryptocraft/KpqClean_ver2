@@ -40,6 +40,13 @@ When updated source code was used, indicate the date the source code was updated
 * Compiler: Apple clang 15.0.0
 * Optimization Level: -O3
 
+* ### Testing Environment3
+* OS: Ubuntu 23.10.1
+* CPU: Intel i5-8259U (2.30 GHz)
+* RAM: 16GB
+* Compiler: gcc 13.2.0
+* Optimization Level: -O3
+
 ### Benchmark method
 * We used 'rdtsc' instruction to calculate time consumption.
 * For Apple Silicon, we used a cycle count inspired by the work of Dougall Johnson (https://gist.github.com/dougallj/5bafb113492047c865c0c8cfbc930155#file-m1_robsize-c-L390).
@@ -148,12 +155,117 @@ When updated source code was used, indicate the date the source code was updated
 </details>
 
 
+## Benchmark AVX2 result
+AIMer and MQ-Sign will be uploaded later.
+
+### Testing Environment1
+* OS: Ubuntu 23.10.1
+* CPU: Ryzen 7 4800H (2.90 GHz)
+* RAM: 16GB
+* Compiler: gcc 13.2.0
+* Optimization Level: -O3
+
+* ### Testing Environment3
+* OS: Ubuntu 23.10.1
+* CPU: Intel i5-8259U (2.30 GHz)
+* RAM: 16GB
+* Compiler: gcc 13.2.0
+* Optimization Level: -O3
+
+### PKE/KEM (Environment1, -O3)
+<details>
+<summary>PKE/KEM-Env1-O3 Table (Unit: clock cycles)</summary>
+    
+|Algorithm     		|  Keygen(Avr.)			| Encapsulation(Avr.) 	| Decapsulation(Avr.)	|
+|-------------: 	| -------------: 		| -------------:		| -------------:		|
+|NTRUplus-KEM576			| 74,709 		| 50,108 				  | 21,075 		 		| 
+|NTRUplus-KEM768			| 139,922 		 		|26,990 			    | 17,193 		 		| 
+|NTRUplus-KEM864			| 95,277		 		  |57,783  				| 19,382  		 	| 
+|NTRUplus-KEM1152			| 159,047 		 		| 38,919 				|25,075  		 		| 
+|NTRUplus-PKE576			| 80,669 		 		| 45,700  				|29,788  		 		| 
+|NTRUplus-PKE768			|118,228 		 		| 29,529 				| 19,408 		 		| 
+|NTRUplus-PKE864			| 95,652 		 		| 46,291 				| 30,918 		 		| 
+|NTRUplus-PKE1152			| 156,861		 		  | 38,101 				|25,553  		 		| 
+|SMAUG-T1			        |123,160 		 		|51,751  				  | 53,314 		 		| 
+|SMAUG-T1(kem 90s)			| 629,96		    | 77,487 			|43,529   		 		| 
+|SMAUG-T3		            | 161,375		 		|74,096  				  | 93,188 		 		| 
+|SMAUG-T3(kem 90s)			| 111,972		 	| 66,307			|  64,600 		 		| 
+|SMAUG-T5			        | 218,537 		 		| 137,043 				| 159,834  		 	|
+|SMAUG-T5(kem 90s)			| 155,019		            |78,917   			| 93,980 		 		| 
+
+</details>
+
+### Digital Signature (Environment1, -O3)
+<details>
+<summary>Digital Signature-Env1-O3 Table (Unit: clock cycles)</summary>
+ 
+    
+|Algorithm     		|  Keygen(Avr.)			| Sign(Avr.) 	| Verify(Avr.)	|
+|-------------: 	| -------------: 		| -------------:		| -------------:		|
+|HAETAE-2			| 825,207 		 	    | 912,657  				| 70,574  		 		| 
+|HAETAE-3			| 1,526,624		 		| 1,256,973  			| 113,230  		 		| 
+|HAETAE-5			| 1,848,440  		 	| 2,078,011 			| 133,963 		 		| 
+|NCCSign-1		    | 246,285  		 		| 250,040  				| 165,103   		 	| 
+|NCCSign-3		    | 206,074  		 		| 325,247  				| 210,895  		 		| 
+|NCCSign-5		    | 309,736  		 		| 508,632  				| 340,775  		 		| 
+</details>
+
+### PKE/KEM (Environment2, -O3)
+<details>
+<summary>PKE/KEM-Env2-O3 Table (Unit: clock cycles)</summary>
+    
+|Algorithm     		|  Keygen(Avr.)			| Encapsulation(Avr.) 	| Decapsulation(Avr.)	|
+|-------------: 	| -------------: 		| -------------:		| -------------:		|
+|NTRUplus-KEM576			| 65,418  		| 39,176 		    | 16,487 		 		| 
+|NTRUplus-KEM768			| 25,114  		| 30,492			    | 18,047 		 		| 
+|NTRUplus-KEM864			| 83,200		 	| 46,571  			| 24,460   		 	| 
+|NTRUplus-KEM1152			| 122,803 		| 41,391  			| 26,980  		 		| 
+|NTRUplus-PKE576			|21,677  	    | 26,998  		    | 16,852| 
+|NTRUplus-PKE768			|65,749 		 	| 31,007  			| 19,780 		 		| 
+|NTRUplus-PKE864			| 55,070 		| 31,878  			| 20,545 		 		| 
+|NTRUplus-PKE1152			| 46,723		 	| 44,628  			| 29,127 		 		| 
+|SMAUG-T1			        | 115,396		| 39,884 			| 44,291 		 		| 
+|SMAUG-T1(kem 90s)			| 65,295		    | 37,292 			| 38,233  		 		| 
+|SMAUG-T3		            | 70,037		 	| 54,754  			| 68,473  		 		| 
+|SMAUG-T3(kem 90s)			| 88,733		 	| 44,108 			| 59,298  		 		| 
+|SMAUG-T5			        | 162,148 		| 98,141  			| 110,725   		 	| 
+|SMAUG-T5(kem 90s)			|125,239 		| 78,479  			| 90,493 		 		| 
+</details>
+
+### Digital Signature (Environment2, -O3)
+<details>
+<summary>Digital Signature-Env2-O3 Table (Unit: clock cycles)</summary>
+ 
+    
+|Algorithm     		|  Keygen(Avr.)			| Sign(Avr.) 	| Verify(Avr.)	|
+|-------------: 	| -------------: 		| -------------:		| -------------:		|
+|HAETAE-2			| 824,021 		 	    | 253,679  				| 65,346 		 		| 
+|HAETAE-3			| 1,445,890		 		| 1,342,471 			| 109,333 		 		| 
+|HAETAE-5			| 2,158,622 		 	| 438,462 				| 134,430 		 		| 
+|NCCSign-1		    | 141,625 		 		| 278,130  				| 130,913  		 		| 
+|NCCSign-3		    | 186,243 		 		| 403,698 				| 186,243 		 		| 
+|NCCSign-5		    | 330,829 		 		| 569,491 				| 294,750 		 		| 
+</details>
+
+
+### Benchmark method
+* We used 'rdtsc' instruction to calculate time consumption.
+
+
 ## How to use
 ### Compile command
 Use the following command for KpqC benchmarking compile.
-
+For Intel, Ryzen processors
     make
     ./KpqC_bench
+    ./PQCgenKAT
+    
+    make clean
+
+For Apple Silicon
+
+    make
+    sudo ./KpqC_bench
     ./PQCgenKAT
     
     make clean
