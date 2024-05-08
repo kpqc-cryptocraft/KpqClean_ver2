@@ -243,12 +243,14 @@ AIMer and MQ-Sign will be uploaded later.
 
 ### Benchmark method
 * We used 'rdtsc' instruction to calculate time consumption.
+* Each algorithms 1,000 iterated, average value of the operation cycle is used.
 
 
 ## How to use
 ### Compile command
 Use the following command for KpqC benchmarking compile.
 For Intel, Ryzen processors
+
     make
     ./KpqC_bench
     ./PQCgenKAT
