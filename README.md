@@ -40,13 +40,6 @@ When updated source code was used, indicate the date the source code was updated
 * Compiler: Apple clang 15.0.0
 * Optimization Level: -O3
 
-* ### Testing Environment3
-* OS: Ubuntu 23.10.1
-* CPU: Intel i5-8259U (2.30 GHz)
-* RAM: 16GB
-* Compiler: gcc 13.2.0
-* Optimization Level: -O3
-
 ### Benchmark method
 * We used 'rdtsc' instruction to calculate time consumption.
 * For Apple Silicon, we used a cycle count inspired by the work of Dougall Johnson (https://gist.github.com/dougallj/5bafb113492047c865c0c8cfbc930155#file-m1_robsize-c-L390).
