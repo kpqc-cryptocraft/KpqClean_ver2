@@ -149,7 +149,7 @@ When updated source code was used, indicate the date the source code was updated
 
 
 ## Benchmark AVX2 result
-AIMer and MQ-Sign will be uploaded later.
+AIMer will be uploaded later.
 
 ### Testing Environment1
 * OS: Ubuntu 23.10.1
@@ -198,6 +198,12 @@ AIMer and MQ-Sign will be uploaded later.
 |HAETAE-2			| 825,207 		 	    | 912,657  				| 70,574  		 		| 
 |HAETAE-3			| 1,526,624		 		| 1,256,973  			| 113,230  		 		| 
 |HAETAE-5			| 1,848,440  		 	| 2,078,011 			| 133,963 		 		| 
+|MQSign_MQLR_256_72_46		| 3,734,999		| 43,696 				| 35,239 	 		| 
+|MQSign_MQLR_256_112_72		| 16,398,700 	| 116,982  			| 112,981 		 	| 
+|MQSign_MQLR_256_148_96		| 41,712,325  	| 206,425 				| 218,123	 		| 
+|MQSign_MQRR_256_72_46		| 5,821,709 	| 61,466   			| 34,617		 	| 
+|MQSign_MQRR_256_112_72		| 24,188,893   	| 165,044 				| 111,455 	 		| 
+|MQSign_MQRR_256_148_96		| 59,706,652  	| 307,147  			    | 216,810 	 		| 
 |NCCSign-1		    | 246,285  		 		| 250,040  				| 165,103   		 	| 
 |NCCSign-3		    | 206,074  		 		| 325,247  				| 210,895  		 		| 
 |NCCSign-5		    | 309,736  		 		| 508,632  				| 340,775  		 		| 
@@ -235,6 +241,12 @@ AIMer and MQ-Sign will be uploaded later.
 |HAETAE-2			| 824,021 		 	    | 253,679  				| 65,346 		 		| 
 |HAETAE-3			| 1,445,890		 		| 1,342,471 			| 109,333 		 		| 
 |HAETAE-5			| 2,158,622 		 	| 438,462 				| 134,430 		 		| 
+|MQSign_MQLR_256_72_46		| 4,836,284		| 60,406 				| 45,612 	 		| 
+|MQSign_MQLR_256_112_72		| 22,306,408 		| 152,923  			| 156,691  		 	| 
+|MQSign_MQLR_256_148_96		| 56,817,865  	| 270,418 				| 288,157	 		| 
+|MQSign_MQRR_256_72_46		| 7,851,507 		|  84,462  			|43,843 		 	| 
+|MQSign_MQRR_256_112_72		| 33,424,686  	| 223,289 				| 156,062	 		| 
+|MQSign_MQRR_256_148_96		| 86,689,847  	| 404,848  			| 291,048	 		| 
 |NCCSign-1		    | 141,625 		 		| 278,130  				| 130,913  		 		| 
 |NCCSign-3		    | 186,243 		 		| 403,698 				| 186,243 		 		| 
 |NCCSign-5		    | 330,829 		 		| 569,491 				| 294,750 		 		| 
