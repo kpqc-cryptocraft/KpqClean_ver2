@@ -49,9 +49,9 @@ int PQC_bench(void)
     printf("CRYPTO_SECRETKEYBYTES: %d\n", CRYPTO_SECRETKEYBYTES);
     printf("CRYPTO_BYTES: %d\n", CRYPTO_BYTES);
     printf("Number of loop: %d \n", TEST_LOOP);
-//     printf("KeyGen ////////////////////////////////////////////// \n");
+    printf("KeyGen ////////////////////////////////////////////// \n");
     
-//     kcycles=0;
+    kcycles=0;
     unsigned char sk_seed[LEN_SKSEED] = { 0 };
     unsigned char salt_source[_SALT_SOURCE_LEN] = { 0 };
     randombytes(sk_seed, LEN_SKSEED);
