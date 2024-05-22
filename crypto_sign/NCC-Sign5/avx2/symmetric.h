@@ -30,7 +30,7 @@ void NIMS_aes256ctr_init(aes256ctr_ctx *state, const uint8_t key[32], uint64_t n
 
 #else
 
-#include "fips202.h"
+#include "../../../common/Keccak_avx2/fips202.h"
 
 typedef keccak_state stream128_state;
 typedef keccak_state stream256_state;
