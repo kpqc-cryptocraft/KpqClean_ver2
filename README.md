@@ -50,7 +50,7 @@ When updated source code was used, indicate the date the source code was updated
 ### Benchmark method
 * We used 'rdtsc' instruction to calculate time consumption.
 * For Apple Silicon, we used a cycle count inspired by the work of Dougall Johnson (https://gist.github.com/dougallj/5bafb113492047c865c0c8cfbc930155#file-m1_robsize-c-L390).
-* Each algorithms 1,000 iterated, average value of the operation cycle is used.
+* Each algorithms 10,000 iterated, average value of the operation cycle is used.
 
 ### PKE/KEM (Environment1, -O3)
 <details>
