@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
+
 #define CRYPTO_SECRETKEYBYTES  cryptolab_smaug5_SECRETKEYBYTES
 #define CRYPTO_PUBLICKEYBYTES  cryptolab_smaug5_PUBLICKEYBYTES
 #define CRYPTO_CIPHERTEXTBYTES cryptolab_smaug5_CIPHERTEXTBYTES
@@ -14,6 +15,7 @@
 #define crypto_kem_keypair cryptolab_smaug5_crypto_kem_keypair
 #define crypto_kem_enc  cryptolab_smaug5_crypto_kem_encap
 #define crypto_kem_dec cryptolab_smaug5_crypto_kem_decap
+
 
 
 #define cryptolab_smaug1_SECRETKEYBYTES 176

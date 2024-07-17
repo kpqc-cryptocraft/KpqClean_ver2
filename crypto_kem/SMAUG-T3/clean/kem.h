@@ -9,7 +9,6 @@
 #include "randombytes.h"
 #include "verify.h"
 
-
 #define crypto_kem_keypair SMAUG_NAMESPACE(crypto_kem_keypair)
 void crypto_kem_keypair(uint8_t *pk, uint8_t *sk);
 #define crypto_kem_encap SMAUG_NAMESPACE(crypto_kem_encap)

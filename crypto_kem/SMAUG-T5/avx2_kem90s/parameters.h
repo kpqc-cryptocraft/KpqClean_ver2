@@ -1,6 +1,7 @@
 // clang-format off
 #ifndef SMAUG_PARAMETERS_H
 #define SMAUG_PARAMETERS_H
+
 #define SMAUG_MODE 5
 
 #define LOG_LWE_N 8             // log dim

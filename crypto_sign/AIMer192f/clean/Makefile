@@ -9,11 +9,11 @@ BENCH_FILES=$(BENCH_DIR)/Sign_KPQC_bench.c
 GENKAT_FILES= $(BENCH_DIR)/PQCgenKAT_sign.c
 
 COMMON_DIR=../../../common
-COMMON_FILES= $(COMMON_DIR)/aes.c $(COMMON_DIR)/cpucycles.c $(COMMON_DIR)/fips202.c $(COMMON_DIR)/randombytes.c
-COMMON_HEADERS= $(COMMON_DIR)/aes.h $(COMMON_DIR)/cpucycles.h $(COMMON_DIR)/fips202.h $(COMMON_DIR)/randombytes.h
+COMMON_FILES= $(COMMON_DIR)/cpucycles.c $(COMMON_DIR)/fips202.c $(COMMON_DIR)/randombytes.c
+COMMON_HEADERS= $(COMMON_DIR)/cpucycles.h $(COMMON_DIR)/fips202.h $(COMMON_DIR)/randombytes.h
 
-SOURCES= api.c field.c aim2.c hash.c tree.c aimer.c 
-HEADERS= field.h aim2.h hash.h tree.h aimer.h params.h portable_endian.h
+SOURCES= field.c aim2.c hash.c tree.c sign.c
+HEADERS= field.h aim2.h hash.h tree.h params.h crypto_declassify.h api.h sign.h
 
 GENKAT_SOURCES= $(COMMON_DIR)/aes.c $(COMMON_DIR)/sha2.c $(COMMON_DIR)/rng.c $(COMMON_DIR)/fips202.c
 GENKAT_HEADERS= $(COMMON_DIR)/aes.h $(COMMON_DIR)/sha2.h $(COMMON_DIR)/rng.h $(COMMON_DIR)/fips202.h

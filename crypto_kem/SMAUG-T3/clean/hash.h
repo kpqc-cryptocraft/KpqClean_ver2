@@ -13,11 +13,8 @@
 void shake256_absorb_twice_squeeze(uint8_t *out, size_t out_bytes,
                                    const uint8_t *in1, size_t in1_bytes,
                                    const uint8_t *in2, size_t in2_bytes);
-
 #define shake256_absorb_once                                          \
     SMAUG_NAMESPACE(shake256_absorb_once)
 void shake256_absorb_once(shake256incctx *state, const uint8_t *in1, size_t in1_bytes);
-
-                                   
 
 #endif // SMAUG_HASH_H

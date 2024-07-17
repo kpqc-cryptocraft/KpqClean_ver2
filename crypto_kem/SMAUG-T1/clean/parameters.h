@@ -4,7 +4,6 @@
 
 #define SMAUG_MODE 1
 
-
 #define SHA3_256_HashSize 32
 #define SHA3_512_HashSize 64
 

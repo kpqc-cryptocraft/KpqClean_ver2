@@ -1,7 +1,7 @@
 #ifndef TIMER_DG_H
 #define TIMER_DG_H
 
-#include <fips202.h>
+#include "fips202.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>

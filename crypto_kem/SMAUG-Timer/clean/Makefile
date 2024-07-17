@@ -4,11 +4,11 @@ CFLAGS += -Wall -Wextra -Wpedantic -Wmissing-prototypes -Wredundant-decls \
 NISTFLAGS += -Wno-unused-result -O3 -fomit-frame-pointer -I../../../common -I./
 RM = /bin/rm
 
-# LDFLAGS=-lcrypto
+LDFLAGS=-lcrypto
 
 COMMON_DIR=../../../common
 COMMON_FILES= $(COMMON_DIR)/randombytes.c  $(COMMON_DIR)/cpucycles.c $(COMMON_DIR)/fips202.c
-COMMON_HEADERS= $(COMMON_DIR)/randombytes.h  $(COMMON_DIR)/cpucycles.h $(COMMON_DIR)/fips202.h $(COMMON_DIR)/sha2.h
+COMMON_HEADERS= $(COMMON_DIR)/randombytes.h  $(COMMON_DIR)/cpucycles.h $(COMMON_DIR)/fips202.h 
 
 BENCH_DIR=../../kem_pke_bench
 BENCH_FILES=$(BENCH_DIR)/SMAUG-T_KPQC_bench.c

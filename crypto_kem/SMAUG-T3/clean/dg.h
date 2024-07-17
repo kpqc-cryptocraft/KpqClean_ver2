@@ -1,7 +1,7 @@
 #ifndef SMAUG_DG_H
 #define SMAUG_DG_H
 
-#include "fips202.h"
+#include <fips202.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
