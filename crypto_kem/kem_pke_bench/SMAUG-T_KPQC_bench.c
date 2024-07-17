@@ -5,7 +5,7 @@
 #include "api.h"
 #include "cpucycles.h"
 
-#define TEST_LOOP 1000
+#define TEST_LOOP 10000
 
 static int PQC_bench(void)
 {

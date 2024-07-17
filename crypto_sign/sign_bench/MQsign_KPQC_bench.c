@@ -10,9 +10,8 @@
 
 #include <time.h>
 
-#define TEST_LOOP 1000
+#define TEST_LOOP 10000
 #define MLEN 24
-// MQSign mode -> mqs_config.h
 
 int PQC_bench(void)
 {
@@ -23,7 +22,6 @@ int PQC_bench(void)
     unsigned char* pk = (unsigned char*)malloc(CRYPTO_PUBLICKEYBYTES+MLEN);
     unsigned char* sk = (unsigned char*)malloc(CRYPTO_SECRETKEYBYTES+MLEN);
 
-//    unsigned char  m[100] = "kpqc benchmark system";
     unsigned char  m[100+MLEN];
 
     unsigned char sm[CRYPTO_BYTES + 200];

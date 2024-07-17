@@ -5,7 +5,7 @@
 #include "api.h"
 #include "cpucycles.h"
 
-#define TEST_LOOP 100
+#define TEST_LOOP 10000
 
 uint64_t t[TEST_LOOP];
 

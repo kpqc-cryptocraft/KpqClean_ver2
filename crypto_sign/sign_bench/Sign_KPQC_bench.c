@@ -5,7 +5,7 @@
 #include "cpucycles.h"
 #include "randombytes.h"
 
-#define TEST_LOOP 1000
+#define TEST_LOOP 10000
 #define MLEN 24
 
 int PQC_bench(void)
