@@ -25,7 +25,7 @@ These standardized algorithms have been incorporated using their latest source c
 |-------------|-------------------|----------------------------------|------------------|------------------------------------------------|
 | **NTRU+**   | Round 2           | 2025-06-26                       | 96ff02b          | https://github.com/ntruplus/ntruplus/tree/main |
 | PALOMA      | Round 2           | –                                | –                | –                                              |
-| **SMAUG-T** | –                 | 2025-05-25 (code), 2024-08-21 (KAT) | HEAD / c5acb07   | https://github.com/hmchoe0528/SMAUG-T_public   |
+| **SMAUG-T** |  Round 2               | 2025-05-25 (code), 2024-08-21 (KAT) | HEAD / c5acb07   | https://github.com/hmchoe0528/SMAUG-T_public   |
 | REDOG       | Round 2           | –                                | –                | –                                              |
 
 ### Digital Signature
