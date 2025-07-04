@@ -30,11 +30,11 @@ These standardized algorithms have been incorporated using their latest source c
 
 ### Digital Signature
 
-| Algorithm | Submission Status | Date       | Link                                                    |
+| Algorithm | Submission Status | Code Update	       | Link                                                    |
 |-----------|-------------------|------------|---------------------------------------------------------|
-| **AIMer**  | 2024-08-01                            | –            | https://github.com/samsungsds-research-papers/AIMer                         |
-| **HAETAE** | No official updates since Round 2     | –            | (No official repository or pending announcement)                           |
-| MQSign    | Round 2            | –          | –                                                       |
+| **AIMer**  |   Round 2             | 2024-08-01            | https://github.com/samsungsds-research-papers/AIMer                         |
+| **HAETAE** |  Round 2    |  -       | (No official repository or pending announcement)                           |
+| MQSign    |   Round 2         | –          | –                                                       |
 | NCCSign   | Round 2            | –          | –                                                       |
 
 
