@@ -13,19 +13,36 @@ There are still a lot of works to be done, but the current version may provide b
 
 When updated source code was used, indicate the date the source code was updated.
 
+**Note:** The following four algorithms have been selected as the final standardized KpqC algorithms:  
+- **KEM:** NTRU+, SMAUG-T  
+- **DSA:** AIMer, HAETAE  
+
+These standardized algorithms have been incorporated using their latest source code.  
+
 ### PKE/KEM
-1. NTRUplus: Round 2 Submission.
-2. PALOMA: Round 2 Submission.
-3. SMAUG-T: March 20th.(https://groups.google.com/g/kpqc-bulletin/c/UBH3J33It0k)
-4. REDOG: Round 2 Submission.
+
+| Algorithm | Submission Status | Date       | Link                                                    |
+|-----------|-------------------|------------|---------------------------------------------------------|
+| **NTRU+**  | 2025-06-26                            | 96ff02b      | https://github.com/ntruplus/ntruplus/tree/main                             |
+| PALOMA    | Round 2            | –          | –                                                       |
+| **SMAUG-T**| 2025-05-25 (HEAD)                     | HEAD         | https://github.com/hmchoe0528/SMAUG-T_public                                |
+|            | – Final KAT file update: 2024-08-21   | c5acb07      |                                                                            |
+| REDOG     | Round 2            | –          | –                                                       |
 
 ### Digital Signature
-1. AIMer: June 27th.(https://groups.google.com/g/kpqc-bulletin/c/QicD0wIDrAU))
-2. HAETAE: Round 2 Submission.
-3. MQSign: Round 2 Submission.
-4. NCCSign: Round 2 Submission.
+
+| Algorithm | Submission Status | Date       | Link                                                    |
+|-----------|-------------------|------------|---------------------------------------------------------|
+| **AIMer**  | 2024-08-01                            | –            | https://github.com/samsungsds-research-papers/AIMer                         |
+| **HAETAE** | No official updates since Round 2     | –            | (No official repository or pending announcement)                           |
+| MQSign    | Round 2            | –          | –                                                       |
+| NCCSign   | Round 2            | –          | –                                                       |
+
 
 ## Benchmark clean result
+Performance results for the updated (latest) code will be provided at a later date.  
+The measurements shown below reflect the performance of the Round 2 submission code.
+
 ### Testing Environment1
 * OS: Ubuntu 22.04
 * CPU: Ryzen 7 4800H (2.90 GHz)
