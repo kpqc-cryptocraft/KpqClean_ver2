@@ -21,13 +21,12 @@ These standardized algorithms have been incorporated using their latest source c
 
 ### PKE/KEM
 
-| Algorithm | Submission Status | Date       | Link                                                    |
-|-----------|-------------------|------------|---------------------------------------------------------|
-| **NTRU+**  | 2025-06-26                            | 96ff02b      | https://github.com/ntruplus/ntruplus/tree/main                             |
-| PALOMA    | Round 2            | –          | –                                                       |
-| **SMAUG-T**| 2025-05-25 (HEAD)                     | HEAD         | https://github.com/hmchoe0528/SMAUG-T_public                                |
-|            | – Final KAT file update: 2024-08-21   | c5acb07      |                                                                            |
-| REDOG     | Round 2            | –          | –                                                       |
+| Algorithm   | Submission Status | Code Update                      | Commit / Tag     | GitHub Repository                             |
+|-------------|-------------------|----------------------------------|------------------|------------------------------------------------|
+| **NTRU+**   | Round 2           | 2025-06-26                       | 96ff02b          | https://github.com/ntruplus/ntruplus/tree/main |
+| PALOMA      | Round 2           | –                                | –                | –                                              |
+| **SMAUG-T** | –                 | 2025-05-25 (code), 2024-08-21 (KAT) | HEAD / c5acb07   | https://github.com/hmchoe0528/SMAUG-T_public   |
+| REDOG       | Round 2           | –                                | –                | –                                              |
 
 ### Digital Signature
 
