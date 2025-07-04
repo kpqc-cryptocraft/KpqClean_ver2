@@ -1,12 +1,33 @@
 #include <stddef.h>
 #include <stdint.h>
-#include "pke.h"
+#include "api.h"
 #include "params.h"
 #include "symmetric.h"
 #include "poly.h"
-#include "verify.h"
-#include "aes.h"
+#include "Keccak_avx2/fips202.h"
 #include "randombytes.h"
+
+/*************************************************
+* Name:        verify
+*
+* Description: Compare two arrays for equality in constant time.
+*
+* Arguments:   const uint8_t *a: pointer to first byte array
+*              const uint8_t *b: pointer to second byte array
+*              size_t len:       length of the byte arrays
+*
+* Returns 0 if the byte arrays are equal, 1 otherwise
+**************************************************/
+static inline int verify(const uint8_t *a, const uint8_t *b, size_t len)
+{
+	size_t i;
+	uint8_t r = 0;
+	
+	for(i=0;i<len;i++)
+		r |= a[i] ^ b[i];
+	
+	return (-(uint64_t)r) >> 63;
+}
 
 /*************************************************
 * Name:        crypto_encrypt_keypair
@@ -22,50 +43,48 @@
 **************************************************/
 int crypto_encrypt_keypair(unsigned char *pk, unsigned char *sk)
 {
-    uint8_t buf[NTRUPLUS_N/2];
- 
-    poly f, finv;
-    poly g;
-    poly h, hinv;
+	uint8_t buf[NTRUPLUS_N / 4];
+	
+	poly f, finv;
+	poly g;
+	poly h, hinv;
 
-    int r;
+	do {
+		randombytes(buf, 32);
+		shake256(buf, NTRUPLUS_N / 4, buf, 32);
+		
+		poly_cbd1(&f, buf);
+		poly_triple(&f, &f);
+		f.coeffs[0] += 1;
+		poly_ntt(&f, &f);
+	} while(poly_baseinv(&finv, &f));
 
-    do {
-        randombytes(buf, 32);
-        aes256ctr_prf(buf, NTRUPLUS_N/2, buf, 0);
+	do {
+		randombytes(buf, 32);
+		shake256(buf, NTRUPLUS_N / 4, buf, 32);
 
-        poly_cbd1(&f, buf);
-        poly_triple(&f,&f);
-        f.coeffs[0] += 1;
-        poly_ntt(&f,&f);
-        r = poly_baseinv(&finv, &f);
-
-        poly_cbd1(&g, buf + NTRUPLUS_N/4); 
-        poly_triple(&g,&g);
-        poly_ntt(&g,&g);
-
-        poly_basemul(&h,&g,&finv);
-        r |= poly_baseinv(&hinv,&h);
-    } while(r);
-
+		poly_cbd1(&g, buf); 
+		poly_triple(&g, &g);
+		poly_ntt(&g, &g);
+		poly_basemul(&h, &g, &finv);
+	} while(poly_baseinv(&hinv, &h));
+	
     //pk
     poly_ntt_pack(&h,&h);
-    poly_freeze(&h);
     poly_tobytes(pk, &h);
 
     //sk
-    poly_ntt_pack(&f,&f);  
-    poly_freeze(&f);
+    poly_ntt_pack(&f,&f); 
     poly_tobytes(sk, &f);
 
     poly_ntt_pack(&hinv,&hinv);
-    poly_freeze(&hinv);
     poly_tobytes(sk+NTRUPLUS_POLYBYTES, &hinv);
 
     hash_f(sk + 2*NTRUPLUS_POLYBYTES, pk);
-
-    return 0;
+	
+	return 0;
 }
+
 /*************************************************
 * Name:        crypto_encrypt
 *
@@ -115,13 +134,11 @@ int crypto_encrypt(unsigned char *c,
     msg[NTRUPLUS_MAXPLAINTEXT] = ~sign1;
 
     randombytes(msg + NTRUPLUS_N/8 - NTRUPLUS_RANDOMBYTES, NTRUPLUS_RANDOMBYTES);
-
     hash_f(msg + NTRUPLUS_N/8, pk);
     hash_h_pke(buf1, msg);
 
     poly_cbd1(&p_r, buf1);
     poly_ntt(&p_r,&p_r);
-    poly_freeze(&p_r);
     poly_ntt_pack(&p_r2,&p_r);
     
     poly_tobytes(buf2, &p_r2);
@@ -134,7 +151,6 @@ int crypto_encrypt(unsigned char *c,
     poly_ntt_unpack(&p_h,&p_h);
     poly_basemul(&p_c, &p_h, &p_r);
     poly_add(&p_c, &p_c, &p_m);
-    poly_freeze(&p_c);
     poly_ntt_pack(&p_c,&p_c);
     poly_tobytes(c, &p_c);
 
@@ -204,7 +220,6 @@ int crypto_encrypt_open(unsigned char *m,
     poly_sub(&p_c,&p_c,&p_m2);
     poly_basemul(&p_r2, &p_c, &p_hinv);
     poly_ntt_pack(&p_r2,&p_r2);
-    poly_freeze(&p_r2);
     poly_tobytes(buf1, &p_r2);
 
     hash_g(buf2, buf1);
@@ -220,7 +235,6 @@ int crypto_encrypt_open(unsigned char *m,
     poly_cbd1(&p_r1,buf3);
     poly_ntt(&p_r1,&p_r1);
     poly_ntt_pack(&p_r1,&p_r1);
-    poly_freeze(&p_r1);
     poly_tobytes(buf2, &p_r1);
    
     fail |= verify(buf1, buf2, NTRUPLUS_POLYBYTES); 

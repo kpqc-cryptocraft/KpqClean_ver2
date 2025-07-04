@@ -1,0 +1,1100 @@
+desc: --stacks=yes
+cmd: ./KpqC_bench
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=438936
+mem_heap_B=2896
+mem_heap_extra_B=80
+mem_stacks_B=28872
+heap_tree=detailed
+n3: 2896 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1664 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 1664 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 1664 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1664 in 8 places, all below massif's threshold (1.00%)
+ n1: 1024 0x48E4D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F49C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48F258F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48F306E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48F306E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E76A8: puts (ioputs.c:40)
+       n1: 1024 0x10933F: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1024 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+ n0: 208 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=2
+#-----------
+time=1084205
+mem_heap_B=3936
+mem_heap_extra_B=120
+mem_stacks_B=33264
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=1358526
+mem_heap_B=4144
+mem_heap_extra_B=128
+mem_stacks_B=77992
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=1917647
+mem_heap_B=6224
+mem_heap_extra_B=208
+mem_stacks_B=90352
+heap_tree=detailed
+n3: 6224 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 3328 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 3328 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 3328 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 3328 in 15 places, all below massif's threshold (1.00%)
+ n2: 1872 0x112281: shake256_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n2: 1248 0x1102C9: cryptolab_haetae2_haetae_shake256_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 1040 0x10AE8D: cryptolab_haetae2_poly_uniform_eta (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1040 in 3 places, all below massif's threshold (1.00%)
+   n0: 208 in 1 place, below massif's threshold (1.00%)
+  n0: 624 in 2 places, all below massif's threshold (1.00%)
+ n1: 1024 0x48E4D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F49C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48F258F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48F306E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48F306E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E76A8: puts (ioputs.c:40)
+       n1: 1024 0x10933F: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1024 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+#-----------
+snapshot=5
+#-----------
+time=2362541
+mem_heap_B=6432
+mem_heap_extra_B=216
+mem_stacks_B=90232
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=2934686
+mem_heap_B=6640
+mem_heap_extra_B=224
+mem_stacks_B=90344
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=3571148
+mem_heap_B=7056
+mem_heap_extra_B=240
+mem_stacks_B=90232
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=4045289
+mem_heap_B=7264
+mem_heap_extra_B=248
+mem_stacks_B=90424
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=4393653
+mem_heap_B=7264
+mem_heap_extra_B=248
+mem_stacks_B=74040
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=4983919
+mem_heap_B=7680
+mem_heap_extra_B=264
+mem_stacks_B=90280
+heap_tree=detailed
+n4: 7680 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 3328 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 3328 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 3328 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 3328 in 15 places, all below massif's threshold (1.00%)
+ n2: 3328 0x112281: shake256_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n2: 2496 0x1102C9: cryptolab_haetae2_haetae_shake256_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 1456 0x10F1EB: cryptolab_haetae2_sample_gauss_N (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1456 in 3 places, all below massif's threshold (1.00%)
+   n1: 1040 0x10AE8D: cryptolab_haetae2_poly_uniform_eta (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1040 in 3 places, all below massif's threshold (1.00%)
+  n0: 832 in 2 places, all below massif's threshold (1.00%)
+ n1: 1024 0x48E4D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F49C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48F258F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48F306E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48F306E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E76A8: puts (ioputs.c:40)
+       n1: 1024 0x10933F: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1024 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+ n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=11
+#-----------
+time=5499827
+mem_heap_B=7888
+mem_heap_extra_B=272
+mem_stacks_B=90424
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=5815329
+mem_heap_B=8096
+mem_heap_extra_B=280
+mem_stacks_B=90376
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=6275012
+mem_heap_B=8304
+mem_heap_extra_B=288
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=6771556
+mem_heap_B=8720
+mem_heap_extra_B=304
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=7118172
+mem_heap_B=8720
+mem_heap_extra_B=304
+mem_stacks_B=85720
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=7672783
+mem_heap_B=8928
+mem_heap_extra_B=312
+mem_stacks_B=73032
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=8108360
+mem_heap_B=9344
+mem_heap_extra_B=328
+mem_stacks_B=90352
+heap_tree=detailed
+n4: 9344 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 4992 0x112281: shake256_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n2: 3952 0x1102C9: cryptolab_haetae2_haetae_shake256_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n2: 2912 0x10F1EB: cryptolab_haetae2_sample_gauss_N (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 1664 0x10D40C: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 1664 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 1664 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 1664 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1664 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1248 in 2 places, all below massif's threshold (1.00%)
+   n1: 1040 0x10AE8D: cryptolab_haetae2_poly_uniform_eta (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1040 in 3 places, all below massif's threshold (1.00%)
+  n0: 1040 in 2 places, all below massif's threshold (1.00%)
+ n1: 3328 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 3328 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 3328 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 3328 in 15 places, all below massif's threshold (1.00%)
+ n1: 1024 0x48E4D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F49C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48F258F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48F306E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48F306E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E76A8: puts (ioputs.c:40)
+       n1: 1024 0x10933F: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1024 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+ n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=18
+#-----------
+time=8808686
+mem_heap_B=9552
+mem_heap_extra_B=336
+mem_stacks_B=90376
+heap_tree=detailed
+n4: 9552 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 5200 0x112281: shake256_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n2: 4160 0x1102C9: cryptolab_haetae2_haetae_shake256_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n2: 3120 0x10F1EB: cryptolab_haetae2_sample_gauss_N (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 1872 0x10D40C: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 1872 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 1872 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 1872 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1872 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1248 in 2 places, all below massif's threshold (1.00%)
+   n1: 1040 0x10AE8D: cryptolab_haetae2_poly_uniform_eta (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1040 in 3 places, all below massif's threshold (1.00%)
+  n0: 1040 in 2 places, all below massif's threshold (1.00%)
+ n1: 3328 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 3328 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 3328 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 3328 in 15 places, all below massif's threshold (1.00%)
+ n1: 1024 0x48E4D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F49C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48F258F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48F306E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48F306E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E76A8: puts (ioputs.c:40)
+       n1: 1024 0x10933F: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1024 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+ n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=19
+#-----------
+time=9227938
+mem_heap_B=9968
+mem_heap_extra_B=352
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=9664118
+mem_heap_B=10176
+mem_heap_extra_B=360
+mem_stacks_B=90280
+heap_tree=detailed
+n4: 10176 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 5824 0x112281: shake256_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n2: 4784 0x1102C9: cryptolab_haetae2_haetae_shake256_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n2: 3744 0x10F1EB: cryptolab_haetae2_sample_gauss_N (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 2496 0x10D40C: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 2496 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 2496 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 2496 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 2496 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1248 in 2 places, all below massif's threshold (1.00%)
+   n1: 1040 0x10AE8D: cryptolab_haetae2_poly_uniform_eta (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1040 in 3 places, all below massif's threshold (1.00%)
+  n0: 1040 in 2 places, all below massif's threshold (1.00%)
+ n1: 3328 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 3328 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 3328 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 3328 in 15 places, all below massif's threshold (1.00%)
+ n1: 1024 0x48E4D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F49C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48F258F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48F306E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48F306E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E76A8: puts (ioputs.c:40)
+       n1: 1024 0x10933F: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1024 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+ n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=21
+#-----------
+time=10299899
+mem_heap_B=10176
+mem_heap_extra_B=360
+mem_stacks_B=72928
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=10643383
+mem_heap_B=10592
+mem_heap_extra_B=376
+mem_stacks_B=90352
+heap_tree=detailed
+n4: 10592 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 6240 0x112281: shake256_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n2: 4992 0x1102C9: cryptolab_haetae2_haetae_shake256_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n2: 3952 0x10F1EB: cryptolab_haetae2_sample_gauss_N (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 2496 0x10D40C: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 2496 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 2496 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 2496 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 2496 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1456 in 2 places, all below massif's threshold (1.00%)
+   n1: 1040 0x10AE8D: cryptolab_haetae2_poly_uniform_eta (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1040 in 3 places, all below massif's threshold (1.00%)
+  n1: 1040 0x11032F: cryptolab_haetae2_haetae_shake256_absorb_twice (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n0: 1040 in 3 places, all below massif's threshold (1.00%)
+  n0: 208 in 1 place, below massif's threshold (1.00%)
+ n1: 3328 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 3328 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 3328 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 3328 in 15 places, all below massif's threshold (1.00%)
+ n1: 1024 0x48E4D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F49C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48F258F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48F306E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48F306E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E76A8: puts (ioputs.c:40)
+       n1: 1024 0x10933F: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1024 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+ n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=23
+#-----------
+time=11074141
+mem_heap_B=10800
+mem_heap_extra_B=384
+mem_stacks_B=90232
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=11717062
+mem_heap_B=11008
+mem_heap_extra_B=392
+mem_stacks_B=90424
+heap_tree=detailed
+n4: 11008 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 6656 0x112281: shake256_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n2: 5408 0x1102C9: cryptolab_haetae2_haetae_shake256_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n2: 4368 0x10F1EB: cryptolab_haetae2_sample_gauss_N (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 2704 0x10D40C: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 2704 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 2704 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 2704 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 2704 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1664 in 2 places, all below massif's threshold (1.00%)
+   n1: 1040 0x10AE8D: cryptolab_haetae2_poly_uniform_eta (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 1040 in 3 places, all below massif's threshold (1.00%)
+  n1: 1040 0x11032F: cryptolab_haetae2_haetae_shake256_absorb_twice (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n0: 1040 in 3 places, all below massif's threshold (1.00%)
+  n0: 208 in 1 place, below massif's threshold (1.00%)
+ n1: 3328 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 3328 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 3328 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 3328 in 15 places, all below massif's threshold (1.00%)
+ n1: 1024 0x48E4D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F49C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48F258F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48F306E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48F306E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E76A8: puts (ioputs.c:40)
+       n1: 1024 0x10933F: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1024 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+ n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=25
+#-----------
+time=12042732
+mem_heap_B=11216
+mem_heap_extra_B=400
+mem_stacks_B=90424
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=12782513
+mem_heap_B=11632
+mem_heap_extra_B=416
+mem_stacks_B=90376
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=13307928
+mem_heap_B=11840
+mem_heap_extra_B=424
+mem_stacks_B=73000
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=13734123
+mem_heap_B=12048
+mem_heap_extra_B=432
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=14163076
+mem_heap_B=12256
+mem_heap_extra_B=440
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=14824855
+mem_heap_B=12672
+mem_heap_extra_B=456
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=15205952
+mem_heap_B=12880
+mem_heap_extra_B=464
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=15587419
+mem_heap_B=13088
+mem_heap_extra_B=472
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=16339830
+mem_heap_B=13296
+mem_heap_extra_B=480
+mem_stacks_B=73016
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=17013741
+mem_heap_B=13712
+mem_heap_extra_B=496
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=17391783
+mem_heap_B=13920
+mem_heap_extra_B=504
+mem_stacks_B=90232
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=17771060
+mem_heap_B=14128
+mem_heap_extra_B=512
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=18153011
+mem_heap_B=14336
+mem_heap_extra_B=520
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=18532174
+mem_heap_B=14544
+mem_heap_extra_B=528
+mem_stacks_B=90376
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=18908158
+mem_heap_B=14544
+mem_heap_extra_B=528
+mem_stacks_B=74072
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=19557904
+mem_heap_B=14960
+mem_heap_extra_B=544
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=19934825
+mem_heap_B=15168
+mem_heap_extra_B=552
+mem_stacks_B=90232
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=20312278
+mem_heap_B=15376
+mem_heap_extra_B=560
+mem_stacks_B=90232
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=20691185
+mem_heap_B=15584
+mem_heap_extra_B=568
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=21071912
+mem_heap_B=15792
+mem_heap_extra_B=576
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=45
+#-----------
+time=21571437
+mem_heap_B=16000
+mem_heap_extra_B=584
+mem_stacks_B=85736
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=22325117
+mem_heap_B=16416
+mem_heap_extra_B=600
+mem_stacks_B=90232
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=22704295
+mem_heap_B=16624
+mem_heap_extra_B=608
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=23371733
+mem_heap_B=17040
+mem_heap_extra_B=624
+mem_stacks_B=90352
+heap_tree=detailed
+n3: 17040 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 12688 0x112281: shake256_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n2: 10608 0x1102C9: cryptolab_haetae2_haetae_shake256_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n3: 9568 0x10F1EB: cryptolab_haetae2_sample_gauss_N (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 6240 0x10D40C: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 6240 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 6240 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 6240 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 6240 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 1664 0x10D391: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 1664 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 1664 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 1664 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1664 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 1664 0x10D3BF: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 1664 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 1664 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 1664 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1664 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n0: 1040 in 1 place, below massif's threshold (1.00%)
+  n2: 1872 0x11032F: cryptolab_haetae2_haetae_shake256_absorb_twice (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 1456 0x10AFAC: cryptolab_haetae2_poly_challenge (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 1456 0x10FB57: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 1456 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 1456 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n0: 1456 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n0: 416 in 2 places, all below massif's threshold (1.00%)
+  n0: 208 in 1 place, below massif's threshold (1.00%)
+ n1: 3328 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 3328 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 3328 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 3328 in 15 places, all below massif's threshold (1.00%)
+ n0: 1024 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=49
+#-----------
+time=23559714
+mem_heap_B=17040
+mem_heap_extra_B=624
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=23838514
+mem_heap_B=17248
+mem_heap_extra_B=632
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=51
+#-----------
+time=24113229
+mem_heap_B=17456
+mem_heap_extra_B=640
+mem_stacks_B=90232
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=24387656
+mem_heap_B=17456
+mem_heap_extra_B=640
+mem_stacks_B=90424
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=24661998
+mem_heap_B=17456
+mem_heap_extra_B=640
+mem_stacks_B=73016
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=24936327
+mem_heap_B=17664
+mem_heap_extra_B=648
+mem_stacks_B=73000
+heap_tree=empty
+#-----------
+snapshot=55
+#-----------
+time=25216187
+mem_heap_B=17872
+mem_heap_extra_B=656
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=56
+#-----------
+time=25490510
+mem_heap_B=17872
+mem_heap_extra_B=656
+mem_stacks_B=90344
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=25574808
+mem_heap_B=18080
+mem_heap_extra_B=664
+mem_stacks_B=90368
+heap_tree=detailed
+n3: 18080 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 13728 0x112281: shake256_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n2: 11440 0x1102C9: cryptolab_haetae2_haetae_shake256_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n3: 10400 0x10F1EB: cryptolab_haetae2_sample_gauss_N (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 6656 0x10D40C: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 6656 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 6656 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 6656 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 6656 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 1872 0x10D391: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 1872 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 1872 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 1872 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1872 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 1872 0x10D3BF: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 1872 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 1872 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 1872 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1872 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n0: 1040 in 1 place, below massif's threshold (1.00%)
+  n2: 2080 0x11032F: cryptolab_haetae2_haetae_shake256_absorb_twice (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 1664 0x10AFAC: cryptolab_haetae2_poly_challenge (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 1664 0x10FB57: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 1664 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 1664 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n0: 1664 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n0: 416 in 2 places, all below massif's threshold (1.00%)
+  n0: 208 in 1 place, below massif's threshold (1.00%)
+ n1: 3328 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 3328 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 3328 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 3328 in 15 places, all below massif's threshold (1.00%)
+ n0: 1024 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=58
+#-----------
+time=25849184
+mem_heap_B=18080
+mem_heap_extra_B=664
+mem_stacks_B=90376
+heap_tree=empty
+#-----------
+snapshot=59
+#-----------
+time=26128560
+mem_heap_B=18288
+mem_heap_extra_B=672
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=60
+#-----------
+time=26403275
+mem_heap_B=18496
+mem_heap_extra_B=680
+mem_stacks_B=90232
+heap_tree=empty
+#-----------
+snapshot=61
+#-----------
+time=26680255
+mem_heap_B=18704
+mem_heap_extra_B=688
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=26954622
+mem_heap_B=18704
+mem_heap_extra_B=688
+mem_stacks_B=90376
+heap_tree=empty
+#-----------
+snapshot=63
+#-----------
+time=27229645
+mem_heap_B=18912
+mem_heap_extra_B=696
+mem_stacks_B=90232
+heap_tree=empty
+#-----------
+snapshot=64
+#-----------
+time=27504006
+mem_heap_B=18912
+mem_heap_extra_B=696
+mem_stacks_B=85720
+heap_tree=empty
+#-----------
+snapshot=65
+#-----------
+time=27778329
+mem_heap_B=18912
+mem_heap_extra_B=696
+mem_stacks_B=72936
+heap_tree=empty
+#-----------
+snapshot=66
+#-----------
+time=28052667
+mem_heap_B=19120
+mem_heap_extra_B=704
+mem_stacks_B=73016
+heap_tree=empty
+#-----------
+snapshot=67
+#-----------
+time=28111943
+mem_heap_B=19328
+mem_heap_extra_B=712
+mem_stacks_B=90352
+heap_tree=detailed
+n3: 19328 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 14976 0x112281: shake256_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n2: 12480 0x1102C9: cryptolab_haetae2_haetae_shake256_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n3: 11440 0x10F1EB: cryptolab_haetae2_sample_gauss_N (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 7488 0x10D40C: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 7488 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 7488 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 7488 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 7488 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 2080 0x10D391: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 2080 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 2080 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 2080 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 2080 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 1872 0x10D3BF: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 1872 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 1872 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 1872 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 1872 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n0: 1040 in 1 place, below massif's threshold (1.00%)
+  n2: 2288 0x11032F: cryptolab_haetae2_haetae_shake256_absorb_twice (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 1872 0x10AFAC: cryptolab_haetae2_poly_challenge (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 1872 0x10FB57: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 1872 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 1872 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n0: 1872 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n0: 416 in 2 places, all below massif's threshold (1.00%)
+  n0: 208 in 1 place, below massif's threshold (1.00%)
+ n1: 3328 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 3328 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 3328 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 3328 in 15 places, all below massif's threshold (1.00%)
+ n0: 1024 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=68
+#-----------
+time=28386264
+mem_heap_B=19328
+mem_heap_extra_B=712
+mem_stacks_B=90376
+heap_tree=empty
+#-----------
+snapshot=69
+#-----------
+time=28665925
+mem_heap_B=19536
+mem_heap_extra_B=720
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=70
+#-----------
+time=28945004
+mem_heap_B=19744
+mem_heap_extra_B=728
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=71
+#-----------
+time=29223804
+mem_heap_B=19952
+mem_heap_extra_B=736
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=72
+#-----------
+time=29498274
+mem_heap_B=19952
+mem_heap_extra_B=736
+mem_stacks_B=90424
+heap_tree=empty
+#-----------
+snapshot=73
+#-----------
+time=29772824
+mem_heap_B=20160
+mem_heap_extra_B=744
+mem_stacks_B=90232
+heap_tree=empty
+#-----------
+snapshot=74
+#-----------
+time=30049804
+mem_heap_B=20368
+mem_heap_extra_B=752
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=75
+#-----------
+time=30162042
+mem_heap_B=20368
+mem_heap_extra_B=752
+mem_stacks_B=90432
+heap_tree=detailed
+n3: 20368 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 16016 0x112281: shake256_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n2: 13520 0x1102C9: cryptolab_haetae2_haetae_shake256_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n3: 12480 0x10F1EB: cryptolab_haetae2_sample_gauss_N (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 8320 0x10D40C: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 8320 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 8320 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 8320 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 8320 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 2080 0x10D391: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 2080 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 2080 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 2080 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 2080 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 2080 0x10D3BF: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 2080 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 2080 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 2080 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 2080 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n0: 1040 in 1 place, below massif's threshold (1.00%)
+  n2: 2288 0x11032F: cryptolab_haetae2_haetae_shake256_absorb_twice (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 1872 0x10AFAC: cryptolab_haetae2_poly_challenge (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 1872 0x10FB57: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 1872 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 1872 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n0: 1872 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n0: 416 in 2 places, all below massif's threshold (1.00%)
+  n0: 208 in 1 place, below massif's threshold (1.00%)
+ n1: 3328 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 3328 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 3328 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 3328 in 15 places, all below massif's threshold (1.00%)
+ n0: 1024 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=76
+#-----------
+time=30436382
+mem_heap_B=20368
+mem_heap_extra_B=752
+mem_stacks_B=73016
+heap_tree=empty
+#-----------
+snapshot=77
+#-----------
+time=30713990
+mem_heap_B=20576
+mem_heap_extra_B=760
+mem_stacks_B=73256
+heap_tree=empty
+#-----------
+snapshot=78
+#-----------
+time=30990643
+mem_heap_B=20576
+mem_heap_extra_B=760
+mem_stacks_B=72896
+heap_tree=empty
+#-----------
+snapshot=79
+#-----------
+time=31264979
+mem_heap_B=20784
+mem_heap_extra_B=768
+mem_stacks_B=90376
+heap_tree=empty
+#-----------
+snapshot=80
+#-----------
+time=31544602
+mem_heap_B=20992
+mem_heap_extra_B=776
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=81
+#-----------
+time=31824541
+mem_heap_B=21200
+mem_heap_extra_B=784
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=82
+#-----------
+time=32102728
+mem_heap_B=21200
+mem_heap_extra_B=784
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=83
+#-----------
+time=32377108
+mem_heap_B=21408
+mem_heap_extra_B=792
+mem_stacks_B=90376
+heap_tree=empty
+#-----------
+snapshot=84
+#-----------
+time=32473133
+mem_heap_B=21616
+mem_heap_extra_B=800
+mem_stacks_B=90352
+heap_tree=peak
+n3: 21616 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n3: 17264 0x112281: shake256_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n2: 14560 0x1102C9: cryptolab_haetae2_haetae_shake256_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n3: 13520 0x10F1EB: cryptolab_haetae2_sample_gauss_N (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 8944 0x10D40C: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 8944 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 8944 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 8944 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 8944 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 2288 0x10D391: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 2288 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 2288 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 2288 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 2288 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 2288 0x10D3BF: cryptolab_haetae2_polyfixveclk_sample_hyperball (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 2288 0x10FA65: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 2288 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n1: 2288 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+        n0: 2288 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n0: 1040 in 1 place, below massif's threshold (1.00%)
+  n2: 2496 0x11032F: cryptolab_haetae2_haetae_shake256_absorb_twice (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 2080 0x10AFAC: cryptolab_haetae2_poly_challenge (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n1: 2080 0x10FB57: crypto_sign_signature (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+     n1: 2080 0x10FE14: crypto_sign (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+      n1: 2080 0x10942B: PQC_bench (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+       n0: 2080 0x1091CC: main (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n0: 416 in 2 places, all below massif's threshold (1.00%)
+  n0: 208 in 1 place, below massif's threshold (1.00%)
+ n1: 3328 0x112001: shake128_inc_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+  n1: 3328 0x110259: cryptolab_haetae2_haetae_shake128_stream_init (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+   n1: 3328 0x10ADAD: cryptolab_haetae2_poly_uniform (in /home/min/Desktop/KpqClean_ver2-main/crypto_sign/HAETAE2/clean/KpqC_bench)
+    n0: 3328 in 15 places, all below massif's threshold (1.00%)
+ n0: 1024 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=85
+#-----------
+time=32747593
+mem_heap_B=21616
+mem_heap_extra_B=800
+mem_stacks_B=90424
+heap_tree=empty
+#-----------
+snapshot=86
+#-----------
+time=33027327
+mem_heap_B=21824
+mem_heap_extra_B=808
+mem_stacks_B=90280
+heap_tree=empty
+#-----------
+snapshot=87
+#-----------
+time=33301681
+mem_heap_B=21824
+mem_heap_extra_B=808
+mem_stacks_B=85720
+heap_tree=empty
+#-----------
+snapshot=88
+#-----------
+time=33576013
+mem_heap_B=21824
+mem_heap_extra_B=808
+mem_stacks_B=73016
+heap_tree=empty
+#-----------
+snapshot=89
+#-----------
+time=33850351
+mem_heap_B=22032
+mem_heap_extra_B=816
+mem_stacks_B=73032
+heap_tree=empty
+#-----------
+snapshot=90
+#-----------
+time=34127913
+mem_heap_B=22240
+mem_heap_extra_B=824
+mem_stacks_B=36664
+heap_tree=empty
+#-----------
+snapshot=91
+#-----------
+time=34408019
+mem_heap_B=23696
+mem_heap_extra_B=880
+mem_stacks_B=36632
+heap_tree=empty
+#-----------
+snapshot=92
+#-----------
+time=34682361
+mem_heap_B=23696
+mem_heap_extra_B=880
+mem_stacks_B=35912
+heap_tree=empty

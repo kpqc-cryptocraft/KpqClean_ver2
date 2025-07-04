@@ -32,6 +32,8 @@ void hash_squeeze(hash_instance *ctx, uint8_t *buffer, size_t buffer_len)
 
 void hash_ctx_clone(hash_instance *ctx_dest, const hash_instance *ctx_src)
 {
+    shake128_inc_init(ctx_dest);
+
   shake128_inc_ctx_clone(ctx_dest, ctx_src);
 }
 

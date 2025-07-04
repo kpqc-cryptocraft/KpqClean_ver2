@@ -5,24 +5,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../../../common/Keccak_avx2/fips202.h"
 #include "parameters.h"
-#include "symmetric.h"
+#include "poly.h"
 
-#if SMAUG_MODE == 1
-#define HS_XOF 5
-#define HR_XOF 5
-
-#elif SMAUG_MODE == 3
-#define HS_XOF 7
-#define HR_XOF 7
-
-#elif SMAUG_MODE == 5
-#define HS_XOF 7
-#define HR_XOF 7
-#endif
+// https://github.com/dgazzoni/NTRU-sampling/blob/main/jupyter/NTRU-sampling.ipynb
+// Use enough seed size 308
+#define HWTSEEDBYTES ((16 * 308) / 8)
 
 #define hwt SMAUG_NAMESPACE(hwt)
-void hwt(uint8_t *res, uint8_t *cnt_arr, const uint8_t *input,
-         const size_t input_size, const uint16_t hmwt);
+void hwt(polyvec *r, const uint8_t seed[CRYPTO_BYTES]);
 
 #endif // SMAUG_HWT_H

@@ -1,6 +1,7 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
+
 #define NTRUPLUS_N 576
 #define NTRUPLUS_Q 3457
 

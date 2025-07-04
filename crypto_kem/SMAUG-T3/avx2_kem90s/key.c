@@ -15,9 +15,162 @@
  *                                     PKSEED_BYTES)
  **************************************************/
 void genAx(polyvec A[MODULE_RANK], const uint8_t seed[PKSEED_BYTES]) {
-    uint8_t buf[PKPOLYMAT_BYTES] = {0};
-    xof(buf, PKPOLYMAT_BYTES, seed, PKSEED_BYTES);
-    bytes_to_Rq_mat(A, buf);
+    ALIGNED_UINT8(((PKPOLY_BYTES + SHAKE128_RATE - 1) / SHAKE128_RATE) *
+                  SHAKE128_RATE)
+    buf[4];
+    __m256i f = _mm256_loadu_si256((__m256i *)seed);
+
+#if MODULE_RANK == 2
+    _mm256_store_si256(buf[0].vec, f);
+    _mm256_store_si256(buf[1].vec, f);
+    _mm256_store_si256(buf[2].vec, f);
+    _mm256_store_si256(buf[3].vec, f);
+    buf[0].coeffs[32] = 0;
+    buf[0].coeffs[33] = 0;
+    buf[1].coeffs[32] = 0;
+    buf[1].coeffs[33] = 1;
+    buf[2].coeffs[32] = 1;
+    buf[2].coeffs[33] = 0;
+    buf[3].coeffs[32] = 1;
+    buf[3].coeffs[33] = 1;
+    shake128x4(buf[0].coeffs, buf[1].coeffs, buf[2].coeffs, buf[3].coeffs,
+               PKPOLY_BYTES, buf[0].coeffs, buf[1].coeffs, buf[2].coeffs,
+               buf[3].coeffs, PKSEED_BYTES + 2);
+    bytes_to_Rq(&A[0].vec[0], buf[0].coeffs);
+    bytes_to_Rq(&A[0].vec[1], buf[1].coeffs);
+    bytes_to_Rq(&A[1].vec[0], buf[2].coeffs);
+    bytes_to_Rq(&A[1].vec[1], buf[3].coeffs);
+
+#elif MODULE_RANK == 3
+    _mm256_store_si256(buf[0].vec, f);
+    _mm256_store_si256(buf[1].vec, f);
+    _mm256_store_si256(buf[2].vec, f);
+    _mm256_store_si256(buf[3].vec, f);
+    buf[0].coeffs[32] = 0;
+    buf[0].coeffs[33] = 0;
+    buf[1].coeffs[32] = 0;
+    buf[1].coeffs[33] = 1;
+    buf[2].coeffs[32] = 1;
+    buf[2].coeffs[33] = 0;
+    buf[3].coeffs[32] = 1;
+    buf[3].coeffs[33] = 1;
+    shake128x4(buf[0].coeffs, buf[1].coeffs, buf[2].coeffs, buf[3].coeffs,
+               PKPOLY_BYTES, buf[0].coeffs, buf[1].coeffs, buf[2].coeffs,
+               buf[3].coeffs, PKSEED_BYTES + 2);
+    bytes_to_Rq(&A[0].vec[0], buf[0].coeffs);
+    bytes_to_Rq(&A[0].vec[1], buf[1].coeffs);
+    bytes_to_Rq(&A[1].vec[0], buf[2].coeffs);
+    bytes_to_Rq(&A[1].vec[1], buf[3].coeffs);
+
+    _mm256_store_si256(buf[0].vec, f);
+    _mm256_store_si256(buf[1].vec, f);
+    _mm256_store_si256(buf[2].vec, f);
+    _mm256_store_si256(buf[3].vec, f);
+    buf[0].coeffs[32] = 2;
+    buf[0].coeffs[33] = 0;
+    buf[1].coeffs[32] = 2;
+    buf[1].coeffs[33] = 1;
+    buf[2].coeffs[32] = 0;
+    buf[2].coeffs[33] = 2;
+    buf[3].coeffs[32] = 1;
+    buf[3].coeffs[33] = 2;
+    shake128x4(buf[0].coeffs, buf[1].coeffs, buf[2].coeffs, buf[3].coeffs,
+               PKPOLY_BYTES, buf[0].coeffs, buf[1].coeffs, buf[2].coeffs,
+               buf[3].coeffs, PKSEED_BYTES + 2);
+    bytes_to_Rq(&A[2].vec[0], buf[0].coeffs);
+    bytes_to_Rq(&A[2].vec[1], buf[1].coeffs);
+    bytes_to_Rq(&A[0].vec[2], buf[2].coeffs);
+    bytes_to_Rq(&A[1].vec[2], buf[3].coeffs);
+
+    _mm256_store_si256(buf[0].vec, f);
+    buf[0].coeffs[32] = 2;
+    buf[0].coeffs[33] = 2;
+    shake128(buf[0].coeffs, PKPOLY_BYTES, buf[0].coeffs, PKSEED_BYTES + 2);
+    bytes_to_Rq(&A[2].vec[2], buf[0].coeffs);
+
+#elif MODULE_RANK == 4
+    _mm256_store_si256(buf[0].vec, f);
+    _mm256_store_si256(buf[1].vec, f);
+    _mm256_store_si256(buf[2].vec, f);
+    _mm256_store_si256(buf[3].vec, f);
+    buf[0].coeffs[32] = 0;
+    buf[0].coeffs[33] = 0;
+    buf[1].coeffs[32] = 0;
+    buf[1].coeffs[33] = 1;
+    buf[2].coeffs[32] = 0;
+    buf[2].coeffs[33] = 2;
+    buf[3].coeffs[32] = 0;
+    buf[3].coeffs[33] = 3;
+    shake128x4(buf[0].coeffs, buf[1].coeffs, buf[2].coeffs, buf[3].coeffs,
+               PKPOLY_BYTES, buf[0].coeffs, buf[1].coeffs, buf[2].coeffs,
+               buf[3].coeffs, PKSEED_BYTES + 2);
+    bytes_to_Rq(&A[0].vec[0], buf[0].coeffs);
+    bytes_to_Rq(&A[0].vec[1], buf[1].coeffs);
+    bytes_to_Rq(&A[0].vec[2], buf[2].coeffs);
+    bytes_to_Rq(&A[0].vec[3], buf[3].coeffs);
+
+    _mm256_store_si256(buf[0].vec, f);
+    _mm256_store_si256(buf[1].vec, f);
+    _mm256_store_si256(buf[2].vec, f);
+    _mm256_store_si256(buf[3].vec, f);
+    buf[0].coeffs[32] = 1;
+    buf[0].coeffs[33] = 0;
+    buf[1].coeffs[32] = 1;
+    buf[1].coeffs[33] = 1;
+    buf[2].coeffs[32] = 1;
+    buf[2].coeffs[33] = 2;
+    buf[3].coeffs[32] = 1;
+    buf[3].coeffs[33] = 3;
+    shake128x4(buf[0].coeffs, buf[1].coeffs, buf[2].coeffs, buf[3].coeffs,
+               PKPOLY_BYTES, buf[0].coeffs, buf[1].coeffs, buf[2].coeffs,
+               buf[3].coeffs, PKSEED_BYTES + 2);
+    bytes_to_Rq(&A[1].vec[0], buf[0].coeffs);
+    bytes_to_Rq(&A[1].vec[1], buf[1].coeffs);
+    bytes_to_Rq(&A[1].vec[2], buf[2].coeffs);
+    bytes_to_Rq(&A[1].vec[3], buf[3].coeffs);
+
+    _mm256_store_si256(buf[0].vec, f);
+    _mm256_store_si256(buf[1].vec, f);
+    _mm256_store_si256(buf[2].vec, f);
+    _mm256_store_si256(buf[3].vec, f);
+    buf[0].coeffs[32] = 2;
+    buf[0].coeffs[33] = 0;
+    buf[1].coeffs[32] = 2;
+    buf[1].coeffs[33] = 1;
+    buf[2].coeffs[32] = 2;
+    buf[2].coeffs[33] = 2;
+    buf[3].coeffs[32] = 2;
+    buf[3].coeffs[33] = 3;
+    shake128x4(buf[0].coeffs, buf[1].coeffs, buf[2].coeffs, buf[3].coeffs,
+               PKPOLY_BYTES, buf[0].coeffs, buf[1].coeffs, buf[2].coeffs,
+               buf[3].coeffs, PKSEED_BYTES + 2);
+    bytes_to_Rq(&A[2].vec[0], buf[0].coeffs);
+    bytes_to_Rq(&A[2].vec[1], buf[1].coeffs);
+    bytes_to_Rq(&A[2].vec[2], buf[2].coeffs);
+    bytes_to_Rq(&A[2].vec[3], buf[3].coeffs);
+
+    _mm256_store_si256(buf[0].vec, f);
+    _mm256_store_si256(buf[1].vec, f);
+    _mm256_store_si256(buf[2].vec, f);
+    _mm256_store_si256(buf[3].vec, f);
+    buf[0].coeffs[32] = 3;
+    buf[0].coeffs[33] = 0;
+    buf[1].coeffs[32] = 3;
+    buf[1].coeffs[33] = 1;
+    buf[2].coeffs[32] = 3;
+    buf[2].coeffs[33] = 2;
+    buf[3].coeffs[32] = 3;
+    buf[3].coeffs[33] = 3;
+    shake128x4(buf[0].coeffs, buf[1].coeffs, buf[2].coeffs, buf[3].coeffs,
+               PKPOLY_BYTES, buf[0].coeffs, buf[1].coeffs, buf[2].coeffs,
+               buf[3].coeffs, PKSEED_BYTES + 2);
+    bytes_to_Rq(&A[3].vec[0], buf[0].coeffs);
+    bytes_to_Rq(&A[3].vec[1], buf[1].coeffs);
+    bytes_to_Rq(&A[3].vec[2], buf[2].coeffs);
+    bytes_to_Rq(&A[3].vec[3], buf[3].coeffs);
+#else
+#error "This implementation works only for MODULE_RANK in {2,3,4}."
+#endif
 }
 
 /*************************************************
@@ -28,18 +181,17 @@ void genAx(polyvec A[MODULE_RANK], const uint8_t seed[PKSEED_BYTES]) {
  *
  * Arguments:   - uint16_t *b: pointer to output vector b
  *              - uint16_t *A: pointer to input matrix A
- *              - uint8_t *s_vec: pointer to input vector s
+ *              - uint8_t *s: pointer to input vector s
  *              - uint8_t *e_seed: pointer to input seed of error (of
  *                                     length CRYPTO_BYTES)
  **************************************************/
-void genBx(polyvec *b, const polyvec A[MODULE_RANK],
-           const sppoly s_vec[MODULE_RANK],
+void genBx(polyvec *b, const polyvec A[MODULE_RANK], const polyvec *s,
            const uint8_t e_seed[CRYPTO_BYTES]) {
     // b = e
     addGaussianErrorVec(b, e_seed);
 
     // b = -a * s + e
-    matrix_vec_mult_sub(b, A, s_vec, 0);
+    matrix_vec_mult_sub(b, A, s);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -56,17 +208,7 @@ void genBx(polyvec *b, const polyvec A[MODULE_RANK],
  *                                     length CRYPTO_BYTES)
  **************************************************/
 void genSx_vec(secret_key *sk, const uint8_t seed[CRYPTO_BYTES]) {
-    uint8_t res[DIMENSION] = {0};
-    uint8_t cnt_arr[MODULE_RANK] = {0};
-
-    hwt(res, cnt_arr, seed, CRYPTO_BYTES, HS);
-
-    for (size_t i = 0; i < MODULE_RANK; ++i) {
-        (sk->sp_vec[i]).cnt = cnt_arr[i];
-        (sk->sp_vec[i]).sx = (uint8_t *)calloc(cnt_arr[i], sizeof(uint8_t));
-        (sk->sp_vec[i]).neg_start = convToIdx(
-            (sk->sp_vec[i]).sx, (sk->sp_vec[i]).cnt, res + (i * LWE_N), LWE_N);
-    }
+    hwt(sk, seed);
 }
 
 /*************************************************
@@ -81,63 +223,9 @@ void genSx_vec(secret_key *sk, const uint8_t seed[CRYPTO_BYTES]) {
  **************************************************/
 void genPubkey(public_key *pk, const secret_key *sk,
                const uint8_t err_seed[CRYPTO_BYTES]) {
-    xof(pk->seed, PKSEED_BYTES, pk->seed, PKSEED_BYTES);
     genAx(pk->A, pk->seed);
 
     memset(&(pk->b), 0, sizeof(uint16_t) * LWE_N);
     // Initialized at addGaussian, Unnecessary
-    genBx(&(pk->b), pk->A, sk->sp_vec, err_seed);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-
-/*************************************************
- * Name:        checkSanity
- *
- * Description: Check the sanity of the public key or secret key.
- *
- * Arguments:   - public_key *pk: pointer to input public key
- *              - secret_key *sk: pointer to input private key
- *
- * Returns 0(success) or 1(failure).
- **************************************************/
-int checkSanity(const public_key *pk, const secret_key *sk) {
-    for (int i = 0; i < MODULE_RANK; ++i) {
-        for (int j = 0; j < MODULE_RANK; ++j) {
-            for (int k = 0; k < LWE_N; ++k) {
-                if (pk->A[i].vec[j].coeffs[k] & ((1 << _16_LOG_Q) - 1)) {
-                    printf("*** ERROR: pk->A[%d][%d][%d] has an invalid "
-                           "value: "
-                           "%u\n",
-                           i, j, k, (unsigned)pk->A[i].vec[j].coeffs[k]);
-                    return 1;
-                }
-            }
-        }
-    }
-
-    for (int i = 0; i < MODULE_RANK; ++i) {
-        for (int j = 0; j < LWE_N; ++j) {
-            if (pk->b.vec[i].coeffs[j] & ((1 << _16_LOG_Q) - 1)) {
-                printf("*** ERROR: pk->b[%d][%d] has an invalid value: "
-                       "%u\n",
-                       i, j, (unsigned)pk->b.vec[i].coeffs[j]);
-                return 1;
-            }
-        }
-    }
-
-    if (sk == NULL)
-        return 0;
-
-    for (int i = 0; i < MODULE_RANK; ++i) {
-        if ((sk->sp_vec[i]).neg_start > HS) {
-            printf("*** ERROR: sk->neg_start[%d] cannot be larger than %d\n", i,
-                   HS);
-            return 1;
-        }
-    }
-
-    return 0;
+    genBx(&(pk->b), pk->A, sk, err_seed);
 }

@@ -4,6 +4,10 @@
 #include "fips202.h"
 #include "parameters.h"
 
+
+#define SHA3_256_HashSize 32
+#define SHA3_512_HashSize 64
+
 #define hash_h(OUT, IN, INBYTES) sha3_256(OUT, IN, INBYTES)
 #define hash_g(OUT, OUTBYTES, IN1, IN1BYTES, IN2, IN2BYTES)                    \
     shake256_absorb_twice_squeeze(OUT, OUTBYTES, IN1, IN1BYTES, IN2, IN2BYTES)

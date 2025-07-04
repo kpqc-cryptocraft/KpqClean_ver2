@@ -4,12 +4,24 @@
 #include <stdint.h>
 #include "params.h"
 
-extern const int16_t zetas[192];
+#define NTRUPLUS_NAMESPACE(s) kpqclean_ntruplus576_clean_##s
 
+#define zetas NTRUPLUS_NAMESPACE(zetas)
+extern const int16_t zetas[144];
+
+#define ntt NTRUPLUS_NAMESPACE(ntt)
 void ntt(int16_t r[NTRUPLUS_N], const int16_t a[NTRUPLUS_N]);
+
+#define invntt NTRUPLUS_NAMESPACE(invntt)
 void invntt(int16_t r[NTRUPLUS_N], const int16_t a[NTRUPLUS_N]);
 
-void basemul(int16_t r[3], const int16_t a[3], const int16_t b[3], int16_t zeta);
-int  baseinv(int16_t r[3], const int16_t a[3], int16_t zeta);
+#define baseinv NTRUPLUS_NAMESPACE(baseinv)
+int baseinv(int16_t r[4], const int16_t a[4], int16_t zeta);
+
+#define basemul NTRUPLUS_NAMESPACE(basemul)
+void basemul(int16_t r[4], const int16_t a[4], const int16_t b[4], int16_t zeta);
+
+#define basemul_add NTRUPLUS_NAMESPACE(basemul_add)
+void basemul_add(int16_t r[4], const int16_t a[4], const int16_t b[4], const int16_t c[4], int16_t zeta);
 
 #endif

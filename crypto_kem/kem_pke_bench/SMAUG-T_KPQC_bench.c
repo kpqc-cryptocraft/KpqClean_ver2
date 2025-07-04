@@ -63,7 +63,7 @@ static int PQC_bench(void)
     for (int i = 0; i < TEST_LOOP; i++)
     {
         cycles1 = cpucycles();
-        crypto_kem_dec(dss, sk, pk, ct);
+        crypto_kem_dec(dss, sk, pk);
         cycles2 = cpucycles();
         kcycles += cycles2-cycles1;
     }

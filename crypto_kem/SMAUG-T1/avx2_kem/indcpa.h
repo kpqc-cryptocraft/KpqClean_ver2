@@ -1,5 +1,5 @@
 #ifndef SMAUG_IND_CPA_PKE_H
-#define SMAUG_IND_CPA_PKE_H
+#define SMAUG_IND_CPA_PKE_H 
 
 #include "ciphertext.h"
 #include "hash.h"
@@ -9,9 +9,9 @@
 #include "parameters.h"
 #include "verify.h"
 
+
 #define genRx_vec SMAUG_NAMESPACE(genRx_vec)
-void genRx_vec(sppoly r[MODULE_RANK], const uint8_t *input,
-               const size_t input_size);
+void genRx_vec(polyvec *r, const uint8_t *input);
 
 #define indcpa_keypair SMAUG_NAMESPACE(indcpa_keypair)
 void indcpa_keypair(uint8_t pk[PUBLICKEY_BYTES],

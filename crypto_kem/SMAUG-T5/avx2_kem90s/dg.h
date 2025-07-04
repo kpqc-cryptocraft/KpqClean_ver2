@@ -6,10 +6,11 @@
 #include <string.h>
 
 #include "align.h"
+#include "Keccak_avx2/fips202.h"
+#include "keccak4x/fips202x4.h"
 #include "parameters.h"
 #include "poly.h"
 #include "randombytes.h"
-#include "symmetric.h"
 #include "verify.h"
 
 ////////////////////////////////////////////////////////////////////////////////

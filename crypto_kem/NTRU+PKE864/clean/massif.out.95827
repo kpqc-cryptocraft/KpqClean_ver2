@@ -1,0 +1,663 @@
+desc: --stacks=yes
+cmd: ./KpqC_bench
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=43896
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=296
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=85646
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1288
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=123858
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1752
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=148304
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=1752
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=181633
+mem_heap_B=1224
+mem_heap_extra_B=24
+mem_stacks_B=14840
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=211112
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14712
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=238274
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14712
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=277401
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14712
+heap_tree=detailed
+n2: 1024 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48E0D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F09C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48EE58F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48EF06E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48EF06E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E36A8: puts (ioputs.c:40)
+       n1: 1024 0x1092FD: PQC_bench.isra.0 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+        n0: 1024 0x10918C: main (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+ n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=9
+#-----------
+time=307794
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14680
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=350103
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14680
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=398856
+mem_heap_B=1224
+mem_heap_extra_B=24
+mem_stacks_B=14840
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=441223
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14712
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=461883
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14712
+heap_tree=detailed
+n2: 1024 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48E0D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F09C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48EE58F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48EF06E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48EF06E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E36A8: puts (ioputs.c:40)
+       n1: 1024 0x1092FD: PQC_bench.isra.0 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+        n0: 1024 0x10918C: main (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+ n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=14
+#-----------
+time=490110
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14712
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=528174
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14696
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=560713
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14680
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=598675
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14680
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=624729
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14680
+heap_tree=detailed
+n2: 1024 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48E0D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F09C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48EE58F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48EF06E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48EF06E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E36A8: puts (ioputs.c:40)
+       n1: 1024 0x1092FD: PQC_bench.isra.0 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+        n0: 1024 0x10918C: main (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+ n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=19
+#-----------
+time=656176
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14616
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=674972
+mem_heap_B=1064
+mem_heap_extra_B=24
+mem_stacks_B=16048
+heap_tree=detailed
+n2: 1064 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48E0D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F09C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48EE58F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48EF06E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48EF06E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E36A8: puts (ioputs.c:40)
+       n1: 1024 0x1092FD: PQC_bench.isra.0 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+        n0: 1024 0x10918C: main (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+ n0: 40 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=21
+#-----------
+time=745911
+mem_heap_B=1064
+mem_heap_extra_B=24
+mem_stacks_B=16200
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=750980
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=6296
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=822860
+mem_heap_B=1064
+mem_heap_extra_B=24
+mem_stacks_B=15960
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=846431
+mem_heap_B=1224
+mem_heap_extra_B=24
+mem_stacks_B=14776
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=874877
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14472
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=908540
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14472
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=932442
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14472
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=960722
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14472
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=1003899
+mem_heap_B=1224
+mem_heap_extra_B=24
+mem_stacks_B=16360
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=1042910
+mem_heap_B=1224
+mem_heap_extra_B=24
+mem_stacks_B=15928
+heap_tree=detailed
+n3: 1224 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48E0D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F09C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48EE58F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48EF06E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48EF06E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E36A8: puts (ioputs.c:40)
+       n1: 1024 0x1092FD: PQC_bench.isra.0 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+        n0: 1024 0x10918C: main (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+ n2: 200 0x1209B1: shake256 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+  n1: 200 0x10F0D6: hash_g (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+   n1: 200 0x109A09: crypto_encrypt (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+    n1: 200 0x1093F8: PQC_bench.isra.0 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+     n0: 200 0x10918C: main (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=31
+#-----------
+time=1087697
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14472
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=1126796
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14472
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=1165012
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14376
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=1187821
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=14424
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=1216976
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23664
+heap_tree=detailed
+n2: 1024 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48E0D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F09C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48EE58F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48EF06E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48EF06E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E36A8: puts (ioputs.c:40)
+       n1: 1024 0x1092FD: PQC_bench.isra.0 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+        n0: 1024 0x10918C: main (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+ n0: 0 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=36
+#-----------
+time=1247956
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23736
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=1293199
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23784
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=1322768
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23784
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=1359772
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23784
+heap_tree=detailed
+n2: 1024 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48E0D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F09C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48EE58F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48EF06E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48EF06E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E36A8: puts (ioputs.c:40)
+       n1: 1024 0x1092FD: PQC_bench.isra.0 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+        n0: 1024 0x10918C: main (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+ n0: 0 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=40
+#-----------
+time=1396848
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23784
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=1435453
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=1466956
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=1489798
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=1516528
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23616
+heap_tree=detailed
+n2: 1024 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48E0D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F09C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48EE58F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48EF06E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48EF06E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E36A8: puts (ioputs.c:40)
+       n1: 1024 0x1092FD: PQC_bench.isra.0 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+        n0: 1024 0x10918C: main (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+ n0: 0 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=45
+#-----------
+time=1563897
+mem_heap_B=1224
+mem_heap_extra_B=24
+mem_stacks_B=25728
+heap_tree=peak
+n2: 1224 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48E0D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F09C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48EE58F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48EF06E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48EF06E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E36A8: puts (ioputs.c:40)
+       n1: 1024 0x1092FD: PQC_bench.isra.0 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+        n0: 1024 0x10918C: main (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+ n0: 200 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=46
+#-----------
+time=1589945
+mem_heap_B=1224
+mem_heap_extra_B=24
+mem_stacks_B=25640
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=1615993
+mem_heap_B=1224
+mem_heap_extra_B=24
+mem_stacks_B=25640
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=1654046
+mem_heap_B=1224
+mem_heap_extra_B=24
+mem_stacks_B=24056
+heap_tree=empty
+#-----------
+snapshot=49
+#-----------
+time=1687912
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=1692983
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=51
+#-----------
+time=1698052
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=1703125
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=1708208
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=1713283
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=detailed
+n2: 1024 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48E0D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F09C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48EE58F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48EF06E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48EF06E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E36A8: puts (ioputs.c:40)
+       n1: 1024 0x1092FD: PQC_bench.isra.0 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+        n0: 1024 0x10918C: main (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+ n0: 0 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=55
+#-----------
+time=1718364
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=56
+#-----------
+time=1723434
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=1728508
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=58
+#-----------
+time=1733582
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=59
+#-----------
+time=1738651
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=60
+#-----------
+time=1743720
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=61
+#-----------
+time=1748790
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=1753869
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=63
+#-----------
+time=1758943
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=64
+#-----------
+time=1764022
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=detailed
+n2: 1024 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48E0D3C: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F09C8: _IO_doallocbuf (genops.c:347)
+   n1: 1024 0x48EE58F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+    n1: 1024 0x48EF06E: _IO_new_file_xsputn (fileops.c:1244)
+     n1: 1024 0x48EF06E: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+      n1: 1024 0x48E36A8: puts (ioputs.c:40)
+       n1: 1024 0x1092FD: PQC_bench.isra.0 (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+        n0: 1024 0x10918C: main (in /home/gjsong/Desktop/(valgrind)2025_KpqClean_ver2-main/crypto_kem/NTRU+PKE864/clean/KpqC_bench)
+ n0: 0 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=65
+#-----------
+time=1769096
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23752
+heap_tree=empty
+#-----------
+snapshot=66
+#-----------
+time=1778495
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=23656
+heap_tree=empty
+#-----------
+snapshot=67
+#-----------
+time=1783571
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=6208
+heap_tree=empty

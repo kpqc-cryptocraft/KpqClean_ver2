@@ -8,7 +8,14 @@
 #define CRYPTO_CIPHERTEXTBYTES NTRUPLUS_CIPHERTEXTBYTES
 #define CRYPTO_BYTES           NTRUPLUS_SSBYTES
 
+#define NTRUPLUS_NAMESPACE(s) kpqclean_ntruplus768_clean_##s
+
+#define crypto_kem_keypair NTRUPLUS_NAMESPACE(crypto_kem_keypair)
+#define crypto_kem_enc NTRUPLUS_NAMESPACE(crypto_kem_enc)
+#define crypto_kem_dec NTRUPLUS_NAMESPACE(crypto_kem_dec)
+
 #define CRYPTO_ALGNAME "NTRU+KEM768"
+
 
 int crypto_kem_keypair(unsigned char *pk,
                        unsigned char *sk);

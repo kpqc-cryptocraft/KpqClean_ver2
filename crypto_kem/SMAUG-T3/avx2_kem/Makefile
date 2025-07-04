@@ -7,7 +7,7 @@ NISTFLAGS += -mavx2 -mbmi2 -mpopcnt -maes \
 RM = /bin/rm
 
 LDFLAGS=-lcrypto
-
+ 
 COMMON_DIR= ../../../common
 COMMON_FILES=$(COMMON_DIR)/randombytes.c $(COMMON_DIR)/cpucycles.c 
 COMMON_HEADERS=$(COMMON_DIR)/randombytes.h  $(COMMON_DIR)/cpucycles.h 
@@ -24,11 +24,11 @@ KECCAK_FILES= $(KECCAKDIR)/fips202.c $(KECCAKDIR)/KeccakP-1600-AVX2.o
 KECCAK_HEADERS= $(KECCAKDIR)/fips202.h $(KECCAKDIR)/KeccakP-1600-SnP.h
 
 BENCH_DIR= ../../kem_pke_bench
-BENCH_FILES=$(BENCH_DIR)/SMAUG-T_KPQC_bench.c
-GENKAT_FILES= $(BENCH_DIR)/SMAUG_PQCgenKAT_kem.c
+BENCH_FILES=$(BENCH_DIR)/KEM_PQC_bench.c
+GENKAT_FILES= $(BENCH_DIR)/PQCgenKAT_kem.c
 
-SOURCES= ciphertext.c dg.c  hash.c hwt.c indcpa.c io.c kem.c key.c pack.c poly.c verify.c $(KECCAK4X_FILES)  $(KECCAK_FILES) 
-HEADERS= align.h api.h ciphertext.h dg.h hash.h hwt.h indcpa.h io.h kem.h key.h pack.h parameters.h poly.h verify.h $(KECCAK4X_HEADERS) $(KECCAK_HEADERS) 
+SOURCES= basemul.S ntt.S invntt.S ciphertext.c dg.c cbd.c consts7681.c consts10753.c hash.c hwt.c indcpa.c io.c kem.c key.c pack.c poly.c verify.c ntt.c $(KECCAK4X_FILES)  $(KECCAK_FILES) 
+HEADERS= align.h api.h ciphertext.h dg.h cbd.h hash.h hwt.h indcpa.h io.h kem.h key.h pack.h parameters.h poly.h verify.h ntt.h config.h consts.h $(KECCAK4X_HEADERS) $(KECCAK_HEADERS) 
 
 GENKAT_SOURCES= $(COMMON_DIR)/aes.c $(COMMON_DIR)/sha2.c $(COMMON_DIR)/rng.c $(COMMON_DIR)/fips202.c
 GENKAT_HEADERS= $(COMMON_DIR)/aes.h $(COMMON_DIR)/sha2.h $(COMMON_DIR)/rng.h $(COMMON_DIR)/fips202.h

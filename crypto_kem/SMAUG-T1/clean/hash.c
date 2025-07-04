@@ -13,6 +13,7 @@ void shake256_absorb_twice_squeeze(uint8_t *out, size_t out_bytes,
 
 void shake256_absorb_once(shake256incctx *state, const uint8_t *in1,
                                   size_t in1_bytes) {
+    // shake256incctx state;
     shake256_inc_init(state);
     shake256_inc_absorb(state, in1, in1_bytes);
     shake256_inc_finalize(state);

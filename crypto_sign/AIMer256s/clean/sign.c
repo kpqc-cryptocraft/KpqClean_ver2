@@ -7,8 +7,8 @@
 #include "params.h"
 #include "sign.h"
 #include "tree.h"
-#include "crypto_declassify.h"
 #include "randombytes.h"
+#include "crypto_declassify.h"
 #include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -571,7 +571,7 @@ int crypto_sign_open(uint8_t *m, size_t *mlen,
     return -1;
   }
 
-  memcpy(m, message, message_len);
+  memmove(m, message, message_len);
   *mlen = message_len;
 
   return 0;

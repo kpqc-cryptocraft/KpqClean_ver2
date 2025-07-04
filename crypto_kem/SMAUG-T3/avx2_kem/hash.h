@@ -1,7 +1,7 @@
 #ifndef SMAUG_HASH_H
 #define SMAUG_HASH_H
 
-#include "Keccak_avx2/fips202.h"
+#include "../common/Keccak_avx2/fips202.h"
 #include "parameters.h"
 
 #define hash_h(OUT, IN, INBYTES) sha3_256(OUT, IN, INBYTES)
