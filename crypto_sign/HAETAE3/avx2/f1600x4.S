@@ -13,9 +13,9 @@ rho56:
 
 .text
 .global cdecl(f1600x4)
-.global _cdecl(f1600x4)
+
 cdecl(f1600x4):
-_cdecl(f1600x4):
+
 vmovdqa		rho8(%rip), %ymm0
 movq		$6, %rax
 looptop:

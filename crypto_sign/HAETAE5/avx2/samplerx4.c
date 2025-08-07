@@ -6,7 +6,7 @@
 #include "keccakx4_vec.h"
 #include <stdint.h>
 #include <immintrin.h>
-#include <stdio.h>
+
 #define GAUSS_RAND (72 + 16 + 48)
 #define GAUSS_RAND_BYTES ((GAUSS_RAND + 7) / 8)
 #define NUM_GAUSSIANS 278 // ca 80% require up to 272 Gaussian samples
@@ -737,7 +737,7 @@ void sample_gauss_N_4x(uint64_t *r0, uint64_t *r1, uint64_t *r2, uint64_t *r3,
     size_t bytecnt, i;
     ALIGNED_UINT8(CRHBYTES+2) buf[4];
     ALIGNED_UINT8(POLY_HYPERBALL_NBLOCKS_4X * STREAM256_BLOCKBYTES * 4) outbuf;
-    ALIGNED_UINT8(SHAKE256_RATE*2) outbuf2[4];
+    ALIGNED_UINT8(STREAM256_BLOCKBYTES*2) outbuf2[4];
     ALIGNED_INT64(NUM_GAUSSIANS * 4) sample_candidates;
     ALIGNED_INT64(NUM_GAUSSIANS * 4) exp;
     ALIGNED_INT64(NUM_GAUSSIANS * 4) rejection;
@@ -797,8 +797,6 @@ void sample_gauss_N_4x(uint64_t *r0, uint64_t *r1, uint64_t *r2, uint64_t *r3,
         signs1[i] = outbuf.coeffs[(i % 8) + (i / 8) * 32 +  8];
         signs2[i] = outbuf.coeffs[(i % 8) + (i / 8) * 32 + 16];
         signs3[i] = outbuf.coeffs[(i % 8) + (i / 8) * 32 + 24];
-         //   printf("%ld\n", (i % 8) + (i / 8) * 32 +  0);
-
     }
 
     // step 0: write CDT randomness into sample_candidates, 72 bit randomness into sqr, and rejection randomness into rejection
@@ -902,6 +900,20 @@ void sample_gauss_N_4x(uint64_t *r0, uint64_t *r1, uint64_t *r2, uint64_t *r3,
         ctr1 += sample_gauss(r1 + ctr1, sqsum, outbuf2[1].coeffs, bytecnt, len1 - ctr1, len1%N);
         ctr2 += sample_gauss(r2 + ctr2, sqsum, outbuf2[2].coeffs, bytecnt, len2 - ctr2, len2%N);
         ctr3 += sample_gauss(r3 + ctr3, sqsum, outbuf2[3].coeffs, bytecnt, len3 - ctr3, len3%N);
+
+        if (ctr0 < len0 || ctr1 < len1 || ctr2 < len2 || ctr3 < len3)
+        {
+            size_t offset = (bytecnt / GAUSS_RAND_BYTES) * GAUSS_RAND_BYTES;
+            size_t rem_bytes = bytecnt - offset;
+            for (size_t i = 0; i < rem_bytes; i++)
+            {
+              outbuf2[0].coeffs[i] = outbuf2[0].coeffs[i + offset];
+              outbuf2[1].coeffs[i] = outbuf2[1].coeffs[i + offset];
+              outbuf2[2].coeffs[i] = outbuf2[2].coeffs[i + offset];
+              outbuf2[3].coeffs[i] = outbuf2[3].coeffs[i + offset];
+            }
+            bytecnt = rem_bytes;
+        }
     }
     renormalize(sqsum);
 }

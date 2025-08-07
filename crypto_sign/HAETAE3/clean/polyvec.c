@@ -491,22 +491,21 @@ int64_t polyvecmk_sqsing_value(const polyvecm *s1, const polyveck *s2) {
     int32_t sum[N] = {0}, bestm[N / TAU + 1] = {0}, min = 0;
 
     for (size_t i = 0; i < M; ++i) {
-        fft_bitrev(input, &s1->vec[i]);
+        fft_init_and_bitrev(input, &s1->vec[i]);
         fft(input);
-
         // cumulative sum
         for (size_t j = 0; j < N; j++) {
-            sum[j] += complex_fp_sqabs(input[2 * j + 1]);
+            sum[j] += complex_fp_sqabs(input[j]);
         }
     }
 
     for (size_t i = 0; i < K; ++i) {
-        fft_bitrev(input, &s2->vec[i]);
+        fft_init_and_bitrev(input, &s2->vec[i]);
         fft(input);
 
         // cumulative sum
         for (size_t j = 0; j < N; j++) {
-            sum[j] += complex_fp_sqabs(input[2 * j + 1]);
+            sum[j] += complex_fp_sqabs(input[j]);
         }
     }
 
@@ -515,9 +514,8 @@ int64_t polyvecmk_sqsing_value(const polyvecm *s1, const polyveck *s2) {
         bestm[i] = sum[i];
     }
     for (size_t i = N / TAU + 1; i < N; i++) {
-        int32_t mask = -1;
         for (size_t j = 0; j < N / TAU + 1; j++) {
-            minmaxmask(&sum[i], &bestm[j], &mask);
+            minmax(&sum[i], &bestm[j]);
         }
     }
     // find minimum in bestm

@@ -147,7 +147,7 @@ void poly_compose(poly *a, const poly *ha, const poly *la) {
     unsigned int i = 0;
 
     for (i = 0; i < N; ++i)
-        a->coeffs[i] = (ha->coeffs[i] << 8) + la->coeffs[i];
+        a->coeffs[i] = (ha->coeffs[i] * 256) + la->coeffs[i];
 }
 
 /*************************************************
@@ -170,7 +170,7 @@ void poly_lsb(poly *a0, const poly *a) {
  *
  * Description: Sample polynomial with uniformly random coefficients
  *              in [0,Q-1] by performing rejection sampling on the
- *              output stream of SHAKE256(seed|nonce)
+ *              output stream of SHAKE128(seed|nonce)
  *
  * Arguments:   - poly *a: pointer to output polynomial
  *              - const uint8_t seed[]: byte array with seed of length SEEDBYTES

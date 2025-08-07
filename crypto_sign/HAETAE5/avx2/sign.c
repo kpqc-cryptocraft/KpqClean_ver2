@@ -27,7 +27,7 @@
 
 int crypto_sign_keypair(uint8_t *pk, uint8_t *sk) {
     uint8_t seedbuf[2 * SEEDBYTES + CRHBYTES] = {0};
-    uint16_t nonce = 0;
+    uint16_t counter = 0;
     const uint8_t *rhoprime, *sigma, *key;
     polyvecm A[K], s1, s1hat;
     polyveck b, s2;
@@ -63,8 +63,8 @@ int crypto_sign_keypair(uint8_t *pk, uint8_t *sk) {
 
 reject:
     // Sample secret vectors s1 and s2
-    polyvecmk_uniform_eta(&s1, &s2, sigma, nonce);
-    nonce += M + K;
+    polyvecmk_uniform_eta(&s1, &s2, sigma, counter);
+    counter += M + K;
 
     // b = a + A0 * s1 + s2 mod q
     s1hat = s1;
@@ -90,8 +90,8 @@ reject:
      **********************************************/
 reject:
     // Sample secret vectors s1 and s2
-    polyvecmk_uniform_eta(&s1, &s2, sigma, nonce);
-    nonce += M + K;
+    polyvecmk_uniform_eta(&s1, &s2, sigma, counter);
+    counter += M + K;
     int64_t squared_singular_value = polyvecmk_sqsing_value(&s1, &s2);
     if (squared_singular_value > GAMMA * GAMMA * N) {
         goto reject;
@@ -134,7 +134,7 @@ int crypto_sign_signature(uint8_t *sig, size_t *siglen, const uint8_t *m,
 
     uint8_t buf[POLYVECK_HIGHBITS_PACKEDBYTES + POLYC_PACKEDBYTES] = {0};
     uint8_t seedbuf[CRHBYTES] = {0}, key[SEEDBYTES] = {0};
-    uint8_t mu[SEEDBYTES] = {0};
+    uint8_t mu[CRHBYTES] = {0};
     uint8_t b = 0;                  // one bit
     uint16_t counter = 0;
     uint64_t reject1, reject2;
@@ -157,8 +157,8 @@ int crypto_sign_signature(uint8_t *sig, size_t *siglen, const uint8_t *m,
     unpack_sk(A1, &s1, &s2, key, sk);
 
     xof256_absorbe_twice(&state, sk, HAETAE_CRYPTO_PUBLICKEYBYTES, m, mlen);
-    xof256_squeeze(mu, SEEDBYTES, &state);
-    xof256_absorbe_twice(&state, key, SEEDBYTES, mu, SEEDBYTES);
+    xof256_squeeze(mu, CRHBYTES, &state);
+    xof256_absorbe_twice(&state, key, SEEDBYTES, mu, CRHBYTES);
     xof256_squeeze(seedbuf, CRHBYTES, &state);
 
     polyvecm_ntt(&s1);

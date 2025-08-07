@@ -62,3 +62,4 @@ clean:
 	-$(RM) -f PQCgenKAT
 	rm -f *.rsp
 	rm -f *.req
+ 

@@ -8,22 +8,22 @@
 #include <stddef.h>
 #include <stdint.h>
 
-// #define crypto_sign_keypair HAETAE_NAMESPACE(keypair)
+//#define crypto_sign_keypair HAETAE_NAMESPACE(keypair)
 int crypto_sign_keypair(uint8_t *pk, uint8_t *sk);
 
-// #define crypto_sign_signature HAETAE_NAMESPACE(signature)
+//#define crypto_sign_signature HAETAE_NAMESPACE(signature)
 int crypto_sign_signature(uint8_t *sig, size_t *siglen, const uint8_t *m,
                           size_t mlen, const uint8_t *sk);
 
-// #define crypto_sign_sign HAETAE_NAMESPACE(sign)
+//#define crypto_sign_sign HAETAE_NAMESPACE(sign)
 int crypto_sign(uint8_t *sm, size_t *smlen, const uint8_t *m, size_t mlen,
                      const uint8_t *sk);
 
-// #define crypto_sign_verify HAETAE_NAMESPACE(verify)
+//#define crypto_sign_verify HAETAE_NAMESPACE(verify)
 int crypto_sign_verify(const uint8_t *sig, size_t siglen, const uint8_t *m,
                        size_t mlen, const uint8_t *pk);
 
-// #define crypto_sign_open HAETAE_NAMESPACE(open)
+//#define crypto_sign_open HAETAE_NAMESPACE(open)
 int crypto_sign_open(uint8_t *m, size_t *mlen, const uint8_t *sm, size_t smlen,
                      const uint8_t *pk);
 
