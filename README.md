@@ -23,7 +23,7 @@ These standardized algorithms have been incorporated using their latest source c
 
 | Algorithm   | Submission Status | Code Update                      | Commit / Tag     | GitHub Repository                             |
 |-------------|-------------------|----------------------------------|------------------|------------------------------------------------|
-| **NTRU+**   | Round 2           | 2025-06-26                       | 96ff02b          | https://github.com/ntruplus/ntruplus/tree/main |
+| **NTRU+**   | Round 2           | 2025-08-21                       | 2050ce8         | https://github.com/ntruplus/ntruplus/tree/main |
 | PALOMA      | Round 2           | –                                | –                | –                                              |
 | **SMAUG-T** |  Round 2               | 2025-05-25 (code), 2024-08-21 (KAT) | HEAD / c5acb07   | https://github.com/hmchoe0528/SMAUG-T_public   |
 | REDOG       | Round 2           | –                                | –                | –                                              |
