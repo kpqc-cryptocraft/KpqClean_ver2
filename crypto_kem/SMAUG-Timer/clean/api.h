@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include "parameters.h"
 
-#define CRYPTO_SECRETKEYBYTES  cryptolab_smaug5_SECRETKEYBYTES
-#define CRYPTO_PUBLICKEYBYTES  cryptolab_smaug5_PUBLICKEYBYTES
-#define CRYPTO_CIPHERTEXTBYTES cryptolab_smaug5_CIPHERTEXTBYTES
-#define CRYPTO_BYTES           cryptolab_smaug5_BYTES
+#define CRYPTO_SECRETKEYBYTES  cryptolab_TiMER_SECRETKEYBYTES
+#define CRYPTO_PUBLICKEYBYTES  cryptolab_TiMER_PUBLICKEYBYTES
+#define CRYPTO_CIPHERTEXTBYTES cryptolab_TiMER_CIPHERTEXTBYTES
+#define CRYPTO_BYTES           cryptolab_TiMER_BYTES
 
 #define CRYPTO_ALGNAME "SMAUG-TIMER"
 
@@ -17,10 +17,10 @@
 #define crypto_kem_enc SMAUG_NAMESPACE(crypto_kem_enc)
 #define crypto_kem_dec SMAUG_NAMESPACE(crypto_kem_dec)
  
-#define cryptolab_smaug5_SECRETKEYBYTES 160 + 672
-#define cryptolab_smaug5_PUBLICKEYBYTES 672
-#define cryptolab_smaug5_CIPHERTEXTBYTES 608
-#define cryptolab_smaug5_BYTES 32
+#define cryptolab_TiMER_SECRETKEYBYTES 160 + 672
+#define cryptolab_TiMER_PUBLICKEYBYTES 672
+#define cryptolab_TiMER_CIPHERTEXTBYTES 608
+#define cryptolab_TiMER_BYTES 32
 
 int crypto_kem_keypair(uint8_t *pk, uint8_t *sk);
 int crypto_kem_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk);
