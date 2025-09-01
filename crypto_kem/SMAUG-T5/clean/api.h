@@ -20,7 +20,7 @@
 #define crypto_kem_enc SMAUG_NAMESPACE(crypto_kem_enc)
 #define crypto_kem_dec SMAUG_NAMESPACE(crypto_kem_dec)
 
-#define cryptolab_smaug5_SECRETKEYBYTES 352 + 1440
+#define cryptolab_smaug5_SECRETKEYBYTES 288 + 1440
 #define cryptolab_smaug5_PUBLICKEYBYTES 1440
 #define cryptolab_smaug5_CIPHERTEXTBYTES 1376
 #define cryptolab_smaug5_BYTES 32

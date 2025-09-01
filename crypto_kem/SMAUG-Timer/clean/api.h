@@ -20,7 +20,7 @@
 #define cryptolab_smaug5_SECRETKEYBYTES 160 + 672
 #define cryptolab_smaug5_PUBLICKEYBYTES 672
 #define cryptolab_smaug5_CIPHERTEXTBYTES 608
-#define cryptolab_smaug5_BYTES 16
+#define cryptolab_smaug5_BYTES 32
 
 int crypto_kem_keypair(uint8_t *pk, uint8_t *sk);
 int crypto_kem_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk);
