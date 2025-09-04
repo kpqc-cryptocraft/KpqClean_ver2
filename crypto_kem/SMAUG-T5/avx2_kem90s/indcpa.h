@@ -9,6 +9,8 @@
 #include "parameters.h"
 #include "verify.h"
 
+#include "aes256ctr.h"
+
 #define genRx_vec SMAUG_NAMESPACE(genRx_vec)
 void genRx_vec(polyvec *r, const uint8_t *input);
 

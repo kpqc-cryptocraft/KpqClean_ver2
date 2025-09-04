@@ -16,8 +16,8 @@ int crypto_kem_keypair(uint8_t *pk, uint8_t *sk) {
     randombytes(sk + PKE_SECRETKEY_BYTES, T_BYTES);
     for (int i = 0; i < PUBLICKEY_BYTES; i++)
         sk[i + PKE_SECRETKEY_BYTES + T_BYTES] = pk[i];
-    
-    return 0;
+
+    return 0;    
 }
 
 /*************************************************

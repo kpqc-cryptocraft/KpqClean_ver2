@@ -7,11 +7,11 @@
 
 #include "align.h"
 #include "Keccak_avx2/fips202.h"
-#include "keccak4x/fips202x4.h"
 #include "parameters.h"
 #include "poly.h"
 #include "randombytes.h"
 #include "verify.h"
+#include "aes256ctr.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// NOISE DISTRIBUTION ///////////////////////////////

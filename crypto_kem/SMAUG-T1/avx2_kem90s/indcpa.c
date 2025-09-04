@@ -1,5 +1,5 @@
 #include "indcpa.h"
-#include "align.h"
+// #include "align.h"
 #include "cbd.h"
 #include "randombytes.h"
 #include "../../../common/Keccak_avx2/fips202.h"
@@ -15,28 +15,11 @@
  **************************************************/
 void genRx_vec(polyvec *r, const uint8_t *input) {
     unsigned int i;
-    ALIGNED_UINT8(CBDSEED_BYTES) buf[4];
+    ALIGNED_UINT8(CBDSEED_BYTES) buf;
 
-    __m256i f = _mm256_loadu_si256((__m256i *)input);
-    _mm256_store_si256(buf[0].vec, f);
-    _mm256_store_si256(buf[1].vec, f);
-    _mm256_store_si256(buf[2].vec, f);
-    _mm256_store_si256(buf[3].vec, f);
-    buf[0].coeffs[32] = 0;
-    buf[1].coeffs[32] = 1;
-    buf[2].coeffs[32] = 2;
-    buf[3].coeffs[32] = 3;
-#if DELTA_BYTES != 32
-#error "This function assumes DELTA_BYTES to be 32."
-#endif
-    shake256x4(buf[0].coeffs, buf[1].coeffs, buf[2].coeffs, buf[3].coeffs,
-               CBDSEED_BYTES, buf[0].coeffs, buf[1].coeffs, buf[2].coeffs,
-               buf[3].coeffs, DELTA_BYTES + 1);
-#if MODULE_RANK > 4
-#error "This function works only up to MODULE_RANK = 4."
-#endif
     for (i = 0; i < MODULE_RANK; ++i) {
-        poly_cbd(&r->vec[i], buf[i].CBDSEED_FIELD);
+        aes256ctr_prf(buf.coeffs, CBDSEED_BYTES, input, i * MODULE_RANK);
+        poly_cbd(&r->vec[i], buf.CBDSEED_FIELD);
     }
 }
 
@@ -60,10 +43,7 @@ void indcpa_keypair(uint8_t pk[PUBLICKEY_BYTES],
 
     uint8_t seed[CRYPTO_BYTES + PKSEED_BYTES] = {0};
     randombytes(seed, CRYPTO_BYTES);
-#if CRYPTO_BYTES + PKSEED_BYTES != 64
-#error "This implementation assumes CRYPTO_BYTES + PKSEED_BYTES to be 64"
-#endif
-    sha3_512(seed, seed, CRYPTO_BYTES);
+    aes256ctr_prf(seed, CRYPTO_BYTES + PKSEED_BYTES, seed, 0);
 
     genSx_vec(&sk_tmp, seed);
 

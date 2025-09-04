@@ -9,14 +9,8 @@ RM = /bin/rm
 LDFLAGS=-lcrypto
 
 COMMON_DIR= ../../../common
-COMMON_FILES=$(COMMON_DIR)/randombytes.c $(COMMON_DIR)/cpucycles.c
-COMMON_HEADERS=$(COMMON_DIR)/randombytes.h  $(COMMON_DIR)/cpucycles.h
-
-KECCAK4XDIR=../../../common/keccak4x
-KECCAK4XOBJ=KeccakP-1600-times4-SIMD256.o
-KECCAK4X=$(KECCAK4XDIR)/$(KECCAK4XOBJ)
-KECCAK4X_FILES= $(KECCAK4XDIR)/fips202x4.c $(KECCAK4XDIR)/KeccakP-1600-times4-SIMD256.c
-KECCAK4X_HEADERS= $(KECCAK4XDIR)/fips202x4.h $(KECCAK4XDIR)/KeccakP-1600-times4-SnP.h $(KECCAK4XDIR)/align.h $(KECCAK4XDIR)/SIMD256-config.h $(KECCAK4XDIR)/brg_endian.h
+COMMON_FILES=$(COMMON_DIR)/randombytes.c $(COMMON_DIR)/cpucycles.c $(COMMON_DIR)/sha2.c
+COMMON_HEADERS=$(COMMON_DIR)/randombytes.h  $(COMMON_DIR)/cpucycles.h $(COMMON_DIR)/sha2.h
 
 KECCAKAVXDIR = ../../../common/Keccak_avx2
 
@@ -26,8 +20,8 @@ GENKAT_FILES= $(BENCH_DIR)/PQCgenKAT_kem.c
 
 ASM_FILES= basemul.S invntt.S ntt.S $(KECCAKAVXDIR)/KeccakP-1600-AVX2.s
 
-SOURCES= $(ASM_FILES) ciphertext.c cbd.c dg.c consts7681.c consts10753.c hash.c hwt.c indcpa.c io.c kem.c key.c pack.c poly.c verify.c ntt.c $(COMMON_DIR)/aes256ctr.c $(KECCAK4X_FILES) $(KECCAK_FILES) $(KECCAKAVXDIR)/fips202.c
-HEADERS= align.h api.h ciphertext.h cbd.h dg.h hash.h hwt.h indcpa.h io.h kem.h key.h pack.h parameters.h poly.h verify.h ntt.h $(COMMON_DIR)/aes256ctr.h $(KECCAK4X_HEADERS) $(KECCAK_HEADERS) $(KECCAKAVXDIR)/fips202.h
+SOURCES= $(ASM_FILES) ciphertext.c cbd.c dg.c consts7681.c consts10753.c hash.c hwt.c indcpa.c io.c kem.c key.c pack.c poly.c verify.c ntt.c $(COMMON_DIR)/aes256ctr.c $(KECCAK_FILES) $(KECCAKAVXDIR)/fips202.c
+HEADERS= align.h api.h ciphertext.h cbd.h dg.h hash.h hwt.h indcpa.h io.h kem.h key.h pack.h parameters.h poly.h verify.h ntt.h  $(COMMON_DIR)/aes256ctr.h $(KECCAK_HEADERS) $(KECCAKAVXDIR)/fips202.h
 
 GENKAT_SOURCES= $(COMMON_DIR)/aes.c $(COMMON_DIR)/sha2.c $(COMMON_DIR)/rng.c $(COMMON_DIR)/fips202.c
 GENKAT_HEADERS= $(COMMON_DIR)/aes.h $(COMMON_DIR)/sha2.h $(COMMON_DIR)/rng.h $(COMMON_DIR)/fips202.h

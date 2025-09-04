@@ -1,12 +1,34 @@
 #include "hash.h"
+#include "aes256ctr.h"
+#include "parameters.h"
+#include "verify.h"
 
-void shake256_absorb_twice_squeeze(uint8_t *out, size_t out_bytes,
+#include <stddef.h>
+#include <stdint.h>
+
+void sha512_absorb_twice(uint8_t *out, size_t out_bytes,
                                    const uint8_t *in1, size_t in1_bytes,
                                    const uint8_t *in2, size_t in2_bytes) {
-    keccak_state state;
-    shake256_init(&state);
-    shake256_absorb(&state, in1, in1_bytes);
-    shake256_absorb(&state, in2, in2_bytes);
-    shake256_finalize(&state);
-    shake256_squeeze(out, out_bytes, &state);
+    uint8_t buf[HASH_G_INBYTES] = {0};
+    (void)out_bytes;
+
+    for (size_t i = 0; i < in1_bytes; ++i)
+        buf[i] = in1[i];
+    for (size_t i = 0; i < in2_bytes; ++i)
+        buf[in1_bytes + i] = in2[i];
+
+    sha512(out, buf, HASH_G_INBYTES);
+}
+
+void aes256ctr_xof(uint8_t *output, size_t out_bytes, const uint8_t *input,
+                   size_t in_bytes) {
+    uint8_t buf[AES256CTR_BLOCKBYTES * XOF_MAXBLOCK] = {0};
+    size_t nblocks =
+        (out_bytes + (AES256CTR_BLOCKBYTES - 1)) / AES256CTR_BLOCKBYTES;
+    (void)in_bytes;
+
+    aes256ctr_ctx state;
+    aes256ctr_init(&state, input, 0);
+    aes256ctr_squeezeblocks(buf, nblocks, &state);
+    cmov(output, buf, out_bytes, 1);
 }

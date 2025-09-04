@@ -8,12 +8,13 @@
 #define CRYPTO_PUBLICKEYBYTES  cryptolab_smaug1_PUBLICKEYBYTES
 #define CRYPTO_CIPHERTEXTBYTES cryptolab_smaug1_CIPHERTEXTBYTES
 #define CRYPTO_BYTES           cryptolab_smaug1_BYTES
- 
+
 #define CRYPTO_ALGNAME "SMAUG-T1"
 
 #define crypto_kem_keypair cryptolab_smaug1_crypto_kem_keypair
 #define crypto_kem_enc  cryptolab_smaug1_crypto_kem_enc
 #define crypto_kem_dec cryptolab_smaug1_crypto_kem_dec
+
 
 #define cryptolab_smaug1_SECRETKEYBYTES 160 + 672
 #define cryptolab_smaug1_PUBLICKEYBYTES 672

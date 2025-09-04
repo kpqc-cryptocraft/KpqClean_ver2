@@ -10,6 +10,9 @@
 #include "pack.h"
 #include "poly.h"
 
+#include "aes256ctr.h"
+#include "hash.h"
+
 typedef polyvec secret_key;
 
 typedef struct PublicKey {

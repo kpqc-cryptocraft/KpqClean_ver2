@@ -7,13 +7,14 @@
 
 #include "../../../common/Keccak_avx2/fips202.h"
 #include "parameters.h"
-#include "poly.h"
+
+#include "aes256ctr.h"
 
 // https://github.com/dgazzoni/NTRU-sampling/blob/main/jupyter/NTRU-sampling.ipynb
 // Use enough seed size 308
 #define HWTSEEDBYTES ((16 * 308) / 8)
 
 #define hwt SMAUG_NAMESPACE(hwt)
-void hwt(polyvec *r, const uint8_t seed[CRYPTO_BYTES]);
+void hwt(int16_t *res, const uint8_t *seed);
 
 #endif // SMAUG_HWT_H

@@ -48,12 +48,17 @@ static void load64_littleendian(uint64_t *out, const unsigned int outlen,
 #endif
 
 #define SEED_LEN (RAND_BITS * LWE_N / 64) // 64-bit seed length
+#define SEED_BYTES (SEED_LEN * sizeof(uint64_t))
+#define NBLOCKS (SEED_BYTES + (AES256CTR_BLOCKBYTES - 1)) / AES256CTR_BLOCKBYTES
 
 // referenced
 // A. Karmakar, S. S. Roy, O. Reparaz, F. Vercauteren and I.
 // Verbauwhede, "Constant-Time Discrete Gaussian Sampling," in IEEE Transactions
 // on Computers, vol. 67, no. 11, pp. 1561-1571, 1 Nov. 2018,
 // doi: 10.1109/TC.2018.2814587.
+
+// for python metacode that generates this code, please refer to notion page
+// https://www.notion.so/Constant-Time-Discrete-Gaussian-Sampling-25cc46cdf40549eabd4923d01d8ce259
 
 /*************************************************
  * Name:        addGaussianError
@@ -213,72 +218,19 @@ int addGaussianError(poly *op, uint64_t *seed) {
 }
 
 void addGaussianErrorVec(polyvec *op, const uint8_t seed[CRYPTO_BYTES]) {
-    ALIGNED_UINT8(CRYPTO_BYTES + 1) extseed[4];
-    ALIGNED_UINT8(SEED_LEN * 8) buf[4];
-    ALIGNED_UINT64(SEED_LEN) seed_temp[4];
+    unsigned int i;
+    uint8_t nonce = 0;
+    ALIGNED_UINT64(SEED_LEN) seed_temp;
+    ALIGNED_UINT8(NBLOCKS * AES256CTR_BLOCKBYTES) buf;
 
-    memset(extseed, 0, sizeof(extseed));
+    aes256ctr_ctx state;
+    aes256ctr_init(&state, seed, nonce);
+    for (i = 0; i < MODULE_RANK; ++i) {
+        aes256ctr_squeezeblocks(buf.coeffs, NBLOCKS, &state);
+        state.n = _mm_loadl_epi64((__m128i *)&nonce);
+        nonce += MODULE_RANK;
 
-    __m256i f;
-    f = _mm256_loadu_si256((__m256i *)seed);
-
-#if MODULE_RANK == 2
-    _mm256_store_si256(extseed[0].vec, f);
-    _mm256_store_si256(extseed[1].vec, f);
-
-    extseed[0].coeffs[CRYPTO_BYTES] = MODULE_RANK * 0;
-    extseed[1].coeffs[CRYPTO_BYTES] = MODULE_RANK * 1;
-
-    shake256x4(buf[0].coeffs, buf[1].coeffs, buf[2].coeffs, buf[3].coeffs,
-               SEED_LEN * 8, extseed[0].coeffs, extseed[1].coeffs,
-               extseed[2].coeffs, extseed[3].coeffs, CRYPTO_BYTES + 1);
-
-    load64_littleendian(seed_temp[0].coeffs, SEED_LEN, buf[0].coeffs);
-    addGaussianError(&(op->vec[0]), seed_temp[0].coeffs);
-    load64_littleendian(seed_temp[1].coeffs, SEED_LEN, buf[1].coeffs);
-    addGaussianError(&(op->vec[1]), seed_temp[1].coeffs);
-    addGaussianError(&(op->vec[1]), seed_temp[1].coeffs);
-#elif MODULE_RANK == 3
-    _mm256_store_si256(extseed[0].vec, f);
-    _mm256_store_si256(extseed[1].vec, f);
-    _mm256_store_si256(extseed[2].vec, f);
-
-    extseed[0].coeffs[CRYPTO_BYTES] = MODULE_RANK * 0;
-    extseed[1].coeffs[CRYPTO_BYTES] = MODULE_RANK * 1;
-    extseed[2].coeffs[CRYPTO_BYTES] = MODULE_RANK * 2;
-
-    shake256x4(buf[0].coeffs, buf[1].coeffs, buf[2].coeffs, buf[3].coeffs,
-               SEED_LEN * 8, extseed[0].coeffs, extseed[1].coeffs,
-               extseed[2].coeffs, extseed[3].coeffs, CRYPTO_BYTES + 1);
-
-    load64_littleendian(seed_temp[0].coeffs, SEED_LEN, buf[0].coeffs);
-    addGaussianError(&(op->vec[0]), seed_temp[0].coeffs);
-    load64_littleendian(seed_temp[1].coeffs, SEED_LEN, buf[1].coeffs);
-    addGaussianError(&(op->vec[1]), seed_temp[1].coeffs);
-    load64_littleendian(seed_temp[2].coeffs, SEED_LEN, buf[2].coeffs);
-    addGaussianError(&(op->vec[2]), seed_temp[2].coeffs);
-#elif MODULE_RANK == 4
-    _mm256_store_si256(extseed[0].vec, f);
-    _mm256_store_si256(extseed[1].vec, f);
-    _mm256_store_si256(extseed[2].vec, f);
-    _mm256_store_si256(extseed[3].vec, f);
-
-    extseed[0].coeffs[CRYPTO_BYTES] = MODULE_RANK * 0;
-    extseed[1].coeffs[CRYPTO_BYTES] = MODULE_RANK * 1;
-    extseed[2].coeffs[CRYPTO_BYTES] = MODULE_RANK * 2;
-    extseed[3].coeffs[CRYPTO_BYTES] = MODULE_RANK * 3;
-
-    shake256x4(buf[0].coeffs, buf[1].coeffs, buf[2].coeffs, buf[3].coeffs,
-               SEED_LEN * 8, extseed[0].coeffs, extseed[1].coeffs,
-               extseed[2].coeffs, extseed[3].coeffs, CRYPTO_BYTES + 1);
-
-    load64_littleendian(seed_temp[0].coeffs, SEED_LEN, buf[0].coeffs);
-    addGaussianError(&(op->vec[0]), seed_temp[0].coeffs);
-    load64_littleendian(seed_temp[1].coeffs, SEED_LEN, buf[1].coeffs);
-    addGaussianError(&(op->vec[1]), seed_temp[1].coeffs);
-    load64_littleendian(seed_temp[2].coeffs, SEED_LEN, buf[2].coeffs);
-    addGaussianError(&(op->vec[2]), seed_temp[2].coeffs);
-    load64_littleendian(seed_temp[3].coeffs, SEED_LEN, buf[3].coeffs);
-    addGaussianError(&(op->vec[3]), seed_temp[3].coeffs);
-#endif
+        load64_littleendian(seed_temp.coeffs, SEED_LEN, buf.coeffs);
+        addGaussianError(&(op->vec[i]), seed_temp.coeffs);
+    }
 }
