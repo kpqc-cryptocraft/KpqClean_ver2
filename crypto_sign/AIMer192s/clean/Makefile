@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS += -Wall -Wextra -Wpedantic -Wmissing-prototypes -Wredundant-decls \
-  -Wshadow -Wpointer-arith -O3 -fomit-frame-pointer -I../../../common -I./
-NISTFLAGS += -Wno-unused-result -O3 -fomit-frame-pointer -I../../../common -I./
+  -Wshadow -Wpointer-arith -O3 -fomit-frame-pointer -DPARAMS=192s -I../../../common -I./
+NISTFLAGS += -Wno-unused-result -O3 -fomit-frame-pointer -DPARAMS=192s -I../../../common -I./
 RM = /bin/rm
 
 BENCH_DIR=../../sign_bench
@@ -12,8 +12,8 @@ COMMON_DIR=../../../common
 COMMON_FILES= $(COMMON_DIR)/cpucycles.c $(COMMON_DIR)/fips202.c $(COMMON_DIR)/randombytes.c
 COMMON_HEADERS= $(COMMON_DIR)/cpucycles.h $(COMMON_DIR)/fips202.h $(COMMON_DIR)/randombytes.h
 
-SOURCES= field.c aim2.c hash.c tree.c sign.c
-HEADERS= field.h aim2.h hash.h tree.h params.h crypto_declassify.h api.h sign.h
+SOURCES= field192.c aim2.c hash.c tree.c sign.c
+HEADERS= field.h aim2.h aim2_constant.h hash.h tree.h params.h api.h sign.h params-aimer-192s.h
 
 GENKAT_SOURCES= $(COMMON_DIR)/aes.c $(COMMON_DIR)/sha2.c $(COMMON_DIR)/rng.c $(COMMON_DIR)/fips202.c
 GENKAT_HEADERS= $(COMMON_DIR)/aes.h $(COMMON_DIR)/sha2.h $(COMMON_DIR)/rng.h $(COMMON_DIR)/fips202.h
@@ -25,11 +25,11 @@ all: \
 	PQCgenKAT
 
 KpqC_bench: $(COMMON_HEADERS) $(HEADERS) $(COMMON_FILES) $(SOURCES) $(BENCH_FILES)
-	$(CC) $(CFLAGS) -o $@ $(BENCH_FILES) $(SOURCES) $(COMMON_FILES) 
+	$(CC) $(CFLAGS) -o $@ $(BENCH_FILES) $(SOURCES) $(COMMON_FILES)
 
 PQCgenKAT: $(GENKAT_HEADERS) $(HEADERS) $(GENKAT_SOURCES) $(SOURCES) $(GENKAT_FILES)
 	$(CC) $(NISTFLAGS) -o $@ $(GENKAT_FILES) $(SOURCES) $(GENKAT_SOURCES)
- 
+
 clean:
 	-$(RM) -f KpqC_bench
 	-$(RM) -f PQCgenKAT

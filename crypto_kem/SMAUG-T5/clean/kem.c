@@ -1,97 +1,196 @@
-#include "kem.h"
+// SPDX-License-Identifier: MIT
+
+#include "api.h"
+#include "fips202.h"
+#include "hash.h"
+#include "indcpa.h"
+#include "randombytes.h"
+#include "verify.h"
+#include <string.h>
+
+/*************************************************
+ * Name:        crypto_kem_keypair_internal
+ *
+ * Description: Generates a public key pk and a private key sk deterministically
+ *              from the given randomness (i.e., d and seed)
+ *              for the CCA-secure Module-Lizard key encapsulation mechanism.
+ *
+ * Arguments:   - uint8_t *pk: pointer to output public key
+ *              - uint8_t *sk: pointer to output private key
+ *              - uint8_t *d: pointer to input d (of length
+ *              SMAUGT_T_BYTES)
+ *              - uint8_t *seed: pointer to input seed (of length
+ *              SMAUGT_CRYPTO_BYTES)
+ *
+ * Return: 0 on success, 1 on failure
+ *
+ * Specification: Implements @[KS X 123456, Algorithm 33,
+ * SMAUG-T.KEM.EncapInternal]
+ **************************************************/
+int crypto_kem_keypair_internal(uint8_t *pk, uint8_t *sk,
+                                uint8_t d[SMAUGT_T_BYTES],
+                                uint8_t seed[SMAUGT_CRYPTO_BYTES]) {
+    int ret = 0;
+    indcpa_keypair(pk, sk, seed);
+    memcpy(sk + SMAUGT_PKE_SECRETKEY_BYTES, d, SMAUGT_T_BYTES);
+    memcpy(sk + SMAUGT_PKE_SECRETKEY_BYTES + SMAUGT_T_BYTES, pk,
+           SMAUGT_PUBLICKEY_BYTES);
+
+    return ret;
+}
 
 /*************************************************
  * Name:        crypto_kem_keypair
  *
- * Description: Generates public and private key
- *              for CCA-secure Module-Lizard key encapsulation mechanism.
+ * Description: Generates a public key pk and a private key sk probabilistically
+ *              by internally sampling the required randomness (i.e., d and
+ * seed) for the CCA-secure Module-Lizard key encapsulation mechanism.
  *
- * Arguments:   - public_key *pk: pointer to output public key
- *                (a structure composed of (seed of A, matrix A, vector b))
- *              - secret_key *sk: pointer to output private key
- *                (a structure composed of (vector s, t, vector negstart))
+ * Arguments:   - uint8_t *pk: pointer to output public key
+ *              - uint8_t *sk: pointer to output private key
+ *
+ * Return: 0 on success, 1 on failure
+ *
+ * Specification: Implements @[KS X 123456, Algorithm 30, SMAUG-T.KEM.KeyGen]
  **************************************************/
 int crypto_kem_keypair(uint8_t *pk, uint8_t *sk) {
-    indcpa_keypair(pk, sk);
-    randombytes(sk + PKE_SECRETKEY_BYTES, T_BYTES);
-    for (int i = 0; i < PUBLICKEY_BYTES; i++)
-        sk[i + PKE_SECRETKEY_BYTES + T_BYTES] = pk[i];
-    return 0;
+    int ret = 0;
+    uint8_t d[SMAUGT_T_BYTES] = {0};
+    uint8_t seed[SMAUGT_CRYPTO_BYTES] = {0};
+
+    randombytes(d, SMAUGT_T_BYTES);
+    randombytes(seed, SMAUGT_CRYPTO_BYTES);
+
+    ret = crypto_kem_keypair_internal(pk, sk, d, seed);
+
+    return ret;
+}
+
+/*************************************************
+ * Name:        crypto_kem_enc_internal
+ *
+ * Description: Generates a shared secret ss and an associated ciphertext ctxt
+ * deterministically for the given message mu using the provided public key pk.
+ *
+ * Arguments:   - uint8_t *ctxt: pointer to output ciphertext
+ *              - uint8_t *ss: pointer to output shared secret
+ *              (of length SMAUGT_CRYPTO_BYTES)
+ *              - uint8_t *pk: pointer to input public key
+ *              - uint8_t *mu: pointer to input message (of length
+ *              SMAUGT_DELTA_BYTES)
+ *
+ * Return: 0 on success, 1 on failure
+ *
+ * Specification: Implements @[KS X 123456, Algorithm 34,
+ * SMAUG-T.KEM.EncapInternal]
+ **************************************************/
+int crypto_kem_enc_internal(uint8_t *ctxt, uint8_t *ss, const uint8_t *pk,
+                            const uint8_t *mu) {
+    int ret = 0;
+    uint8_t seed_r[SMAUGT_DELTA_BYTES + SMAUGT_CRYPTO_BYTES] = {0};
+    hash_h(seed_r, pk, SMAUGT_PUBLICKEY_BYTES);
+    hash_g(seed_r, SMAUGT_DELTA_BYTES + SMAUGT_CRYPTO_BYTES, mu,
+           SMAUGT_MSG_BYTES, seed_r, SHA3_256_HashSize);
+
+    memset(ss, 0, SMAUGT_CRYPTO_BYTES);
+    indcpa_enc(ctxt, pk, mu, seed_r);
+    cmov(ss, seed_r + SMAUGT_DELTA_BYTES, SMAUGT_CRYPTO_BYTES, 1);
+    return ret;
 }
 
 /*************************************************
  * Name:        crypto_kem_enc
  *
- * Description: Generates ciphertext and shared
- *              secret for given public key.
+ * Description: Generates a shared secret ss and an associated ciphertext ctxt
+ * probabilistically by internally sampling the required randomness (i.e., mu)
+ *              for the given public key.
  *
- * Arguments:   - ciphertext *ctxt: pointer to output ciphertext
- *                (a structure composed of (vector c21, c22))
- *              - unsigned char *ss: pointer to output shared secret
- *                (an already allocated array of CRYPTO_BYTES bytes)
- *              - public_key *pk: pointer to output public key
- *                (a structure composed of (seed of A, matrix A, vector b))
+ * Arguments:   - uint8_t *ctxt: pointer to output ciphertext
+ *              - uint8_t *ss: pointer to output  shared secret
+ *              (of length SMAUGT_CRYPTO_BYTES)
+ *              - uint8_t *pk: pointer to input public key
  *
- * Returns 0(success) or 1(failure).
+ * Return: 0 on success, 1 on failure
+ *
+ * Specification: Implements @[KS X 123456, Algorithm 31, SMAUG-T.KEM.Encap]
  **************************************************/
 int crypto_kem_enc(uint8_t *ctxt, uint8_t *ss, const uint8_t *pk) {
-    uint8_t mu[DELTA_BYTES] = {0}; // shared secret and seed
-    uint8_t buf[DELTA_BYTES + CRYPTO_BYTES] = {0};
+    int ret = 0;
+    uint8_t mu[SMAUGT_MSG_BYTES] = {0}; // shared secret and seed
+    randombytes(mu, SMAUGT_MSG_BYTES);
 
-    randombytes(mu, DELTA_BYTES);
-    hash_h(buf, pk, PUBLICKEY_BYTES);
-    hash_g(buf, DELTA_BYTES + CRYPTO_BYTES, mu, DELTA_BYTES, buf,
+    ret = crypto_kem_enc_internal(ctxt, ss, pk, mu);
+
+    return ret;
+}
+
+/*************************************************
+ * Name:        crypto_kem_dec_internal
+ *
+ * Description: Produces a shared secret ss deterministically
+ *              for the given ciphertext ctxt using the provided private key sk.
+ *
+ * Arguments:   - uint8_t *ss: pointer to output shared secret
+ *              (of length SMAUGT_CRYPTO_BYTES)
+ *              - uint8_t *sk: pointer to input private key
+ *              - uint8_t *ctxt: pointer to input ciphertext
+ *
+ * Return: 0 on success, 1 on failure
+ *
+ * Specification: Implements @[KS X 123456, Algorithm 35,
+ * SMAUG-T.KEM.DecapInternal]
+ **************************************************/
+int crypto_kem_dec_internal(uint8_t *ss, const uint8_t *ctxt,
+                            const uint8_t *sk) {
+    int ret = 0;
+    uint8_t mu[SMAUGT_MSG_BYTES] = {0};
+    uint8_t buf[SMAUGT_DELTA_BYTES + SMAUGT_CRYPTO_BYTES] = {
+        0}; // shared secret and seed
+    uint8_t buf_tmp[SMAUGT_DELTA_BYTES + SMAUGT_CRYPTO_BYTES] = {0};
+    uint8_t hash_res[SHA3_256_HashSize] = {0};
+    const uint8_t *pk = sk + SMAUGT_PKE_SECRETKEY_BYTES + SMAUGT_T_BYTES;
+
+    indcpa_dec(mu, sk, ctxt);
+    hash_h(hash_res, pk, SMAUGT_PUBLICKEY_BYTES);
+    hash_g(buf, SMAUGT_DELTA_BYTES + SMAUGT_CRYPTO_BYTES, mu, SMAUGT_MSG_BYTES,
+           hash_res, SHA3_256_HashSize);
+
+    uint8_t ctxt_temp[SMAUGT_CIPHERTEXT_BYTES] = {0};
+    indcpa_enc(ctxt_temp, pk, mu, buf);
+
+    int fail = verify(ctxt, ctxt_temp, SMAUGT_CIPHERTEXT_BYTES);
+
+    hash_h(hash_res, ctxt, SMAUGT_CIPHERTEXT_BYTES);
+    hash_g(buf_tmp, SMAUGT_DELTA_BYTES + SMAUGT_CRYPTO_BYTES,
+           sk + SMAUGT_PKE_SECRETKEY_BYTES, SMAUGT_T_BYTES, hash_res,
            SHA3_256_HashSize);
 
-    memset(ss, 0, CRYPTO_BYTES);
-    indcpa_enc(ctxt, pk, mu, buf);
-    cmov(ss, buf + DELTA_BYTES, CRYPTO_BYTES, 1);
+    memset(ss, 0, SMAUGT_CRYPTO_BYTES);
+    cmov(buf + SMAUGT_DELTA_BYTES, buf_tmp + SMAUGT_DELTA_BYTES,
+         SMAUGT_CRYPTO_BYTES, fail);
+    cmov(ss, buf + SMAUGT_DELTA_BYTES, SMAUGT_CRYPTO_BYTES, 1);
 
-    return 0;
+    return ret;
 }
 
 /*************************************************
  * Name:        crypto_kem_dec
  *
- * Description: Generates shared secret for given
- *              ciphertext and private key.
+ * Description: Produces a shared secret ss deterministically
+ *              for the given ciphertext ctxt using the provided private key sk.
  *
- * Arguments:   - unsigned char *ss: pointer to output shared secret
- *                (an already allocated array of CRYPTO_BYTES bytes)
- *              - secret_key *sk: pointer to input private key
- *                (a structure composed of (vector s, t, vector negstart))
- *              - public_key *pk: pointer to input public key
- *                (a structure composed of (seed of A, matrix A, vector b))
- *              - ciphertext *ctxt: pointer to input ciphertext
- *                (a structure composed of (vector c21, c22))
+ * Arguments:   - uint8_t *ss: pointer to output shared secret (of length
+ *              SMAUGT_CRYPTO_BYTES). On failure, ss will contain a
+ * pseudo-random value.
+ *              - uint8_t *sk: pointer to input private key
+ *              - uint8_t *ctxt: pointer to input ciphertext
  *
- * Returns 0(success) or 1(failure).
- * On failure, ss will contain a pseudo-random value.
+ * Return: 0 on success, 1 on failure
+ *
+ * Specification: Implements @[KS X 123456, Algorithm 32, SMAUG-T.KEM.Decap]
  **************************************************/
 int crypto_kem_dec(uint8_t *ss, const uint8_t *ctxt, const uint8_t *sk) {
-    uint8_t mu[DELTA_BYTES] = {0};
-    uint8_t buf[DELTA_BYTES + CRYPTO_BYTES] = {0}; // shared secret and seed
-    uint8_t buf_tmp[DELTA_BYTES + CRYPTO_BYTES] = {0};
-    uint8_t hash_res[SHA3_256_HashSize] = {0};
-    const uint8_t *pk = sk + PKE_SECRETKEY_BYTES + T_BYTES;
-
-    indcpa_dec(mu, sk, ctxt);
-    hash_h(hash_res, pk, PUBLICKEY_BYTES);
-    hash_g(buf, DELTA_BYTES + CRYPTO_BYTES, mu, DELTA_BYTES, hash_res,
-           SHA3_256_HashSize);
-
-    uint8_t ctxt_temp[CIPHERTEXT_BYTES] = {0};
-    indcpa_enc(ctxt_temp, pk, mu, buf);
-
-    int fail = verify(ctxt, ctxt_temp, CIPHERTEXT_BYTES);
-
-    hash_h(hash_res, ctxt, CIPHERTEXT_BYTES);
-    hash_g(buf_tmp, DELTA_BYTES + CRYPTO_BYTES,
-           sk + 2 * MODULE_RANK + SKPOLYVEC_BYTES, T_BYTES, hash_res,
-           SHA3_256_HashSize);
-
-    memset(ss, 0, CRYPTO_BYTES);
-    cmov(buf + DELTA_BYTES, buf_tmp + DELTA_BYTES, CRYPTO_BYTES, fail);
-    cmov(ss, buf + DELTA_BYTES, CRYPTO_BYTES, 1);
-    return 0;
+    int ret = 0;
+    ret = crypto_kem_dec_internal(ss, ctxt, sk);
+    return ret;
 }

@@ -1,22 +1,15 @@
-#ifndef SMAUG_CBD_H
-#define SMAUG_CBD_H
+// SPDX-License-Identifier: MIT
 
+#ifndef SMAUGT_CBD_H
+#define SMAUGT_CBD_H
+
+#include "params.h"
 #include "poly.h"
 
 #include <stdint.h>
-#include <stdio.h>
 
-#if SMAUG_MODE == 1
-#define CBDSEED_BYTES ((3 * LWE_N) / 8)
+#define sp_cbd SMAUGT_NAMESPACE(sp_cbd)
 
-#elif SMAUG_MODE == 3
-#define CBDSEED_BYTES ((2 * LWE_N) / 8)
+void sp_cbd(poly *r, const uint8_t buf[SMAUGT_CBDSEED_BYTES]);
 
-#elif SMAUG_MODE == 5
-#define CBDSEED_BYTES ((4 * LWE_N) / 8)
-#endif
-
-#define poly_cbd SMAUG_NAMESPACE(poly_cbd)
-void poly_cbd(poly *r, const uint8_t buf[CBDSEED_BYTES]);
-
-#endif // SMAUG_CBD_H
+#endif /* !SMAUGT_CBD_H */

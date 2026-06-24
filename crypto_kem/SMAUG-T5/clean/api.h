@@ -1,34 +1,37 @@
-#ifndef KEM_SMAUG_H
-#define KEM_SMAUG_H
+// SPDX-License-Identifier: MIT
+
+#ifndef SMAUGT_API_H
+#define SMAUGT_API_H
+
+#include "params.h"
 
 #include <stdint.h>
-#include <stdio.h>
 
-#include "parameters.h"
+/* Export API in SUPERCOP naming scheme CRYPTO_xxx / crypto_kem_xxx */
+#define CRYPTO_SECRETKEYBYTES SMAUGT_KEM_SECRETKEY_BYTES
+#define CRYPTO_PUBLICKEYBYTES SMAUGT_PUBLICKEY_BYTES
+#define CRYPTO_CIPHERTEXTBYTES SMAUGT_CIPHERTEXT_BYTES
+#define CRYPTO_BYTES SMAUGT_SHARED_SECRETE_BYTES
+#define CRYPTO_ALGNAME SMAUGT_CRYPTO_ALGNAME
 
+#define crypto_kem_keypair_internal SMAUGT_NAMESPACE(keypair_internal)
+#define crypto_kem_keypair SMAUGT_NAMESPACE(keypair)
+#define crypto_kem_enc_internal SMAUGT_NAMESPACE(enc_internal)
+#define crypto_kem_enc SMAUGT_NAMESPACE(enc)
+#define crypto_kem_dec_internal SMAUGT_NAMESPACE(dec_internal)
+#define crypto_kem_dec SMAUGT_NAMESPACE(dec)
 
-#define CRYPTO_SECRETKEYBYTES  cryptolab_smaug5_SECRETKEYBYTES
-#define CRYPTO_PUBLICKEYBYTES  cryptolab_smaug5_PUBLICKEYBYTES
-#define CRYPTO_CIPHERTEXTBYTES cryptolab_smaug5_CIPHERTEXTBYTES
-#define CRYPTO_BYTES           cryptolab_smaug5_BYTES
-
-
-#define CRYPTO_ALGNAME "SMAUG-T5"
-
-// // 네임스페이스 적용
-#define crypto_kem_keypair SMAUG_NAMESPACE(crypto_kem_keypair)
-#define crypto_kem_enc SMAUG_NAMESPACE(crypto_kem_enc)
-#define crypto_kem_dec SMAUG_NAMESPACE(crypto_kem_dec)
-
-#define cryptolab_smaug5_SECRETKEYBYTES 288 + 1440
-#define cryptolab_smaug5_PUBLICKEYBYTES 1440
-#define cryptolab_smaug5_CIPHERTEXTBYTES 1376
-#define cryptolab_smaug5_BYTES 32
-
-
+int crypto_kem_keypair_internal(uint8_t *pk, uint8_t *sk,
+                                uint8_t d[SMAUGT_T_BYTES],
+                                uint8_t seed[SMAUGT_CRYPTO_BYTES]);
 int crypto_kem_keypair(uint8_t *pk, uint8_t *sk);
-int crypto_kem_enc(uint8_t *ct, uint8_t *ss,
-                                      const uint8_t *pk);
-int crypto_kem_dec(uint8_t *ss, const uint8_t *sk,
-                                      const uint8_t *pk);
-#endif // KEM_SMAUG_H
+
+int crypto_kem_enc_internal(uint8_t *ctxt, uint8_t *ss, const uint8_t *pk,
+                            const uint8_t *mu);
+int crypto_kem_enc(uint8_t *ctxt, uint8_t *ss, const uint8_t *pk);
+
+int crypto_kem_dec_internal(uint8_t *ss, const uint8_t *ctxt,
+                            const uint8_t *sk);
+int crypto_kem_dec(uint8_t *ss, const uint8_t *ctxt, const uint8_t *sk);
+
+#endif /* !SMAUGT_API_H */

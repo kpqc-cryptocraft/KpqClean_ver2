@@ -7,33 +7,37 @@
 #include <stddef.h>
 #include <stdint.h>
 
-typedef uint64_t GF[2];
+#if SECURITY_BITS == 128
+typedef uint64_t gf[2];
+#elif SECURITY_BITS == 192
+typedef uint64_t gf[3];
+#else
+typedef uint64_t gf[4];
+#endif
 
-#define GF_set0 AIMER_NAMESPACE(GF_set0)
-void GF_set0(GF a);
-#define GF_copy AIMER_NAMESPACE(GF_copy)
-void GF_copy(GF out, const GF in);
-#define GF_to_bytes AIMER_NAMESPACE(GF_to_bytes)
-void GF_to_bytes(uint8_t *out, const GF in);
-#define GF_from_bytes AIMER_NAMESPACE(GF_from_bytes)
-void GF_from_bytes(GF out, const uint8_t *in);
+#define gf_set0 AIMER_NAMESPACE(gf_set0)
+void gf_set0(gf a);
+#define gf_copy AIMER_NAMESPACE(gf_copy)
+void gf_copy(gf out, const gf in);
+#define gf_to_bytes AIMER_NAMESPACE(gf_to_bytes)
+void gf_to_bytes(uint8_t *out, const gf in);
+#define gf_from_bytes AIMER_NAMESPACE(gf_from_bytes)
+void gf_from_bytes(gf out, const uint8_t *in);
 
-#define GF_add AIMER_NAMESPACE(GF_add)
-void GF_add(GF c, const GF a, const GF b);
-#define GF_mul AIMER_NAMESPACE(GF_mul)
-void GF_mul(GF c, const GF a, const GF b);
-#define GF_mul_add AIMER_NAMESPACE(GF_mul_add)
-void GF_mul_add(GF c, const GF a, const GF b);
-#define GF_transposed_matmul AIMER_NAMESPACE(GF_transposed_matmul)
-void GF_transposed_matmul(GF c, const GF a, const GF b[AIM2_NUM_BITS_FIELD]);
-#define GF_transposed_matmul_add AIMER_NAMESPACE(GF_transposed_matmul_add)
-void GF_transposed_matmul_add(GF c, const GF a, const GF b[AIM2_NUM_BITS_FIELD]);
+#define gf_add AIMER_NAMESPACE(gf_add)
+void gf_add(gf c, const gf a, const gf b);
+#define gf_mul AIMER_NAMESPACE(gf_mul)
+void gf_mul(gf c, const gf a, const gf b);
+#define gf_mul_add AIMER_NAMESPACE(gf_mul_add)
+void gf_mul_add(gf c, const gf a, const gf b);
+#define gf_sqr AIMER_NAMESPACE(gf_sqr)
+void gf_sqr(gf c, const gf a);
+#define gf_exp AIMER_NAMESPACE(gf_exp)
+void gf_exp(gf out, const gf in, const uint64_t *exp);
 
-#define GF_mul_s AIMER_NAMESPACE(GF_mul_s)
-void GF_mul_s(GF c, const GF a, const GF b);
-#define GF_mul_add_s AIMER_NAMESPACE(GF_mul_add_s)
-void GF_mul_add_s(GF c, const GF a, const GF b);
-#define GF_sqr_s AIMER_NAMESPACE(GF_sqr_s)
-void GF_sqr_s(GF c, const GF a);
+#define gf_mat_vec_mul AIMER_NAMESPACE(gf_mat_vec_mul)
+void gf_mat_vec_mul(gf c, const gf a, const gf b[AIM2_NUM_BITS_FIELD]);
+#define gf_mat_vec_mul_add AIMER_NAMESPACE(gf_mat_vec_mul_add)
+void gf_mat_vec_mul_add(gf c, const gf a, const gf b[AIM2_NUM_BITS_FIELD]);
 
 #endif // FIELD_H

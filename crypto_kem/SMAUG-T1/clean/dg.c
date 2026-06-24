@@ -1,4 +1,9 @@
+// SPDX-License-Identifier: MIT
+
 #include "dg.h"
+#include "fips202.h"
+
+#include <string.h>
 
 /*************************************************
  * Name:        load64_littleendian
@@ -7,46 +12,27 @@
  *              in little-endian order
  *
  * Arguments:   - uint64_t *out: pointer to output int64_t array
- *              - int outlen: output length
- *              - uint8_t *in: pointer to input byte array
+ *              - size_t outlen: output length (should be a multiple of 10)
+ *              - const uint8_t *in: pointer to input byte array
  **************************************************/
-static void load64_littleendian(uint64_t *out, const unsigned int outlen,
+#define load64_littleendian SMAUGT_NAMESPACE(load64_littleendian)
+static void load64_littleendian(uint64_t *out, size_t outlen,
                                 const uint8_t *in) {
-    unsigned int i, pos = 0;
-    for (i = 0; i < outlen; ++i) {
-        out[i] =
-            ((uint64_t)(in[pos])) | ((uint64_t)(in[pos + 1]) << 8) |
-            ((uint64_t)(in[pos + 2]) << 16) | ((uint64_t)(in[pos + 3]) << 24) |
-            ((uint64_t)(in[pos + 4]) << 32) | ((uint64_t)(in[pos + 5]) << 40) |
-            ((uint64_t)(in[pos + 6]) << 48) | ((uint64_t)(in[pos + 7]) << 56);
-        pos += 8;
+    unsigned int i, j, pos = 0;
+    for (i = 0; i < outlen / 10; ++i) {
+        for (j = 0; j < 10; j++) {
+            out[10 * i + j] = ((uint64_t)(in[pos + j])) |
+                              ((uint64_t)(in[pos + 10 + j]) << 8) |
+                              ((uint64_t)(in[pos + 20 + j]) << 16) |
+                              ((uint64_t)(in[pos + 30 + j]) << 24) |
+                              ((uint64_t)(in[pos + 40 + j]) << 32) |
+                              ((uint64_t)(in[pos + 50 + j]) << 40) |
+                              ((uint64_t)(in[pos + 60 + j]) << 48) |
+                              ((uint64_t)(in[pos + 70 + j]) << 56);
+        }
+        pos += 80;
     }
 }
-
-////////////////////////////////////////////////////////////////////////////////
-///////////////////////////// NOISE DISTRIBUTION ///////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-#ifdef NOISE_D1
-#define RAND_BITS 10 // bits for RND + SIGN
-#define SLEN 2
-#endif
-
-#ifdef NOISE_D2
-#define RAND_BITS 11 // bits for RND + SIGN
-#define SLEN 3
-#endif
-
-#ifdef NOISE_D3
-#define RAND_BITS 12 // bits for RND + SIGN
-#define SLEN 3
-#endif
-
-#ifdef NOISE_D4
-#define RAND_BITS 11 // bits for RND + SIGN
-#define SLEN 4
-#endif
-
-#define SEED_LEN (RAND_BITS * LWE_N / 64) // 64-bit seed length
 
 // referenced
 // A. Karmakar, S. S. Roy, O. Reparaz, F. Vercauteren and I.
@@ -58,26 +44,29 @@ static void load64_littleendian(uint64_t *out, const unsigned int outlen,
 // https://www.notion.so/Constant-Time-Discrete-Gaussian-Sampling-25cc46cdf40549eabd4923d01d8ce259
 
 /*************************************************
- * Name:        addGaussianError
+ * Name:        d_gaussian_poly
  *
- * Description: Sample discret Gaussian noise e and add e to op
+ * Description: Sample a discrete Gaussian noise e and add the noise e to the
+ * output vector op
  *
- * Arguments:   - uint16_t *op: pointer to output vector op
- *              - uint8_t *seed: pointer to input seed of length CRYPTO_BYTES+1
+ * Arguments:   - poly *op: pointer to output vector op
+ *              - const uint8_t *seed: pointer to input seed (of length
+ *              SMAUGT_CRYPTO_BYTES+1)
+ *
+ * Specification: Implements @[KS X 123456, Algorithm 11, dGaussianPoly]
  **************************************************/
-int addGaussianError(poly *op, const uint8_t *seed) {
+int d_gaussian_poly(poly *op, const uint8_t *seed) {
     unsigned int i = 0, j = 0, k = 0;
-    uint64_t seed_temp[SEED_LEN] = {0};
-    uint8_t buf[SEED_LEN * 8] = {0};
-    uint64_t s[SLEN] = {0};
+    uint64_t seed_temp[SMAUGT_DG_SMAUGT_SEED_LEN] = {0};
+    uint8_t buf[SMAUGT_DG_SMAUGT_SEED_LEN * 8] = {0};
+    uint64_t s[SMAUGT_DG_SMAUGT_SLEN] = {0};
     uint64_t *x = NULL;
 
-    shake256(buf, SEED_LEN * 8, seed, CRYPTO_BYTES + 1);
-    load64_littleendian(seed_temp, SEED_LEN, buf);
+    shake256(buf, SMAUGT_DG_SMAUGT_SEED_LEN * 8, seed, SMAUGT_CRYPTO_BYTES + 1);
+    load64_littleendian(seed_temp, SMAUGT_DG_SMAUGT_SEED_LEN, buf);
 
-    for (i = 0; i < LWE_N; i += 64) {
+    for (i = 0; i < SMAUGT_N; i += 64) {
         x = seed_temp + j;
-#ifdef NOISE_D1
         s[0] = (x[0] & x[1] & x[2] & x[3] & x[4] & x[5] & x[7] & ~x[8]) |
                (x[0] & x[3] & x[4] & x[5] & x[6] & x[8]) |
                (x[1] & x[3] & x[4] & x[5] & x[6] & x[8]) |
@@ -92,139 +81,32 @@ int addGaussianError(poly *op, const uint8_t *seed) {
                 ((s[0] >> k) & 0x01) | (((s[1] >> k) & 0x01) << 1);
             uint16_t sign = (x[9] >> k) & 0x01;
             op->coeffs[i + k] = (((-sign) ^ op->coeffs[i + k]) + sign)
-                                << _16_LOG_Q;
+                                << SMAUGT_MODULUS_16_LOG_Q;
         }
-#endif
-#ifdef NOISE_D2
-        s[0] = (x[0] & x[1] & x[2] & x[3] & x[5] & x[7] & x[8]) |
-               (x[1] & x[2] & x[3] & x[5] & ~x[6] & x[7] & x[9]) |
-               (~x[1] & ~x[2] & ~x[3] & x[6] & x[7] & x[8]) |
-               (~x[1] & ~x[2] & ~x[3] & ~x[5] & ~x[8] & x[9]) |
-               (~x[0] & ~x[2] & ~x[3] & ~x[5] & ~x[8] & x[9]) |
-               (x[4] & x[5] & ~x[6] & x[7] & x[9]) |
-               (x[3] & x[4] & x[8] & ~x[9]) | (~x[5] & x[6] & x[7] & x[8]) |
-               (~x[4] & x[6] & x[7] & x[8]) | (~x[4] & ~x[5] & ~x[8] & x[9]) |
-               (x[5] & x[8] & ~x[9]) | (x[6] & x[8] & ~x[9]) |
-               (x[7] & x[8] & ~x[9]) | (~x[7] & ~x[8] & x[9]) |
-               (~x[6] & ~x[8] & x[9]);
-        s[1] = (x[0] & x[1] & x[4] & ~x[5] & x[6] & x[7] & x[9]) |
-               (x[2] & x[4] & ~x[5] & x[6] & x[7] & x[9]) |
-               (x[3] & x[4] & ~x[5] & x[6] & x[7] & x[9]) |
-               (x[5] & x[6] & x[7] & ~x[8] & x[9]) |
-               (~x[1] & ~x[2] & ~x[3] & x[8] & x[9]) | (~x[7] & x[8] & x[9]) |
-               (~x[6] & x[8] & x[9]) | (~x[5] & x[8] & x[9]) |
-               (~x[4] & x[8] & x[9]);
-        s[2] = (x[1] & x[4] & x[5] & x[6] & x[7] & x[8] & x[9]) |
-               (x[2] & x[4] & x[5] & x[6] & x[7] & x[8] & x[9]) |
-               (x[3] & x[4] & x[5] & x[6] & x[7] & x[8] & x[9]);
-        for (k = 0; k < 64; ++k) {
-            op->coeffs[i + k] = ((s[0] >> k) & 0x01) |
-                                (((s[1] >> k) & 0x01) << 1) |
-                                (((s[2] >> k) & 0x01) << 2);
-            uint16_t sign = (x[10] >> k) & 0x01;
-            op->coeffs[i + k] = (((-sign) ^ op->coeffs[i + k]) + sign)
-                                << _16_LOG_Q;
-        }
-#endif
-#ifdef NOISE_D3
-        s[0] = (x[0] & ~x[2] & ~x[3] & x[4] & x[6] & x[7] & x[9]) |
-               (x[1] & ~x[2] & ~x[3] & x[4] & x[6] & x[7] & x[9]) |
-               (~x[0] & ~x[1] & ~x[3] & x[5] & x[6] & x[7] & x[9]) |
-               (x[1] & x[2] & x[3] & x[5] & x[6] & x[7] & x[9]) |
-               (~x[1] & ~x[2] & ~x[3] & ~x[4] & ~x[7] & x[8] & x[9]) |
-               (x[2] & x[4] & ~x[5] & x[6] & x[8] & x[9]) |
-               (~x[3] & ~x[4] & ~x[7] & ~x[8] & ~x[9] & x[10]) |
-               (x[3] & x[4] & x[7] & x[8] & ~x[10]) |
-               (x[3] & x[4] & ~x[5] & x[6] & x[9]) |
-               (~x[4] & x[5] & x[6] & x[7] & x[9]) |
-               (~x[6] & ~x[7] & ~x[8] & ~x[9] & x[10]) |
-               (~x[5] & ~x[7] & ~x[8] & ~x[9] & x[10]) |
-               (x[5] & x[7] & x[8] & ~x[10]) | (x[6] & x[7] & x[8] & ~x[10]) |
-               (x[5] & x[6] & ~x[8] & x[9]) | (~x[6] & ~x[7] & x[8] & x[9]) |
-               (~x[5] & ~x[7] & x[8] & x[9]) | (x[7] & ~x[8] & x[9]) |
-               (x[9] & ~x[10]);
-        s[1] = (x[0] & x[2] & x[4] & x[5] & x[6] & x[7] & x[10]) |
-               (x[1] & x[2] & x[4] & x[5] & x[6] & x[7] & x[10]) |
-               (~x[1] & ~x[2] & ~x[3] & ~x[4] & ~x[7] & x[9] & x[10]) |
-               (x[3] & x[4] & x[5] & x[6] & x[7] & x[10]) |
-               (x[3] & x[5] & x[6] & ~x[8] & x[10]) |
-               (x[4] & x[5] & x[6] & ~x[8] & x[10]) |
-               (~x[6] & ~x[7] & x[9] & x[10]) | (~x[5] & ~x[7] & x[9] & x[10]) |
-               (x[7] & ~x[8] & x[10]) | (x[8] & ~x[9] & x[10]) |
-               (~x[8] & x[9] & x[10]);
-        s[2] = (x[1] & x[5] & x[6] & x[8] & x[9] & x[10]) |
-               (x[2] & x[5] & x[6] & x[8] & x[9] & x[10]) |
-               (x[3] & x[5] & x[6] & x[8] & x[9] & x[10]) |
-               (x[4] & x[5] & x[6] & x[8] & x[9] & x[10]) |
-               (x[7] & x[8] & x[9] & x[10]);
-        for (k = 0; k < 64; ++k) {
-            op->coeffs[i + k] = ((s[0] >> k) & 0x01) |
-                                (((s[1] >> k) & 0x01) << 1) |
-                                (((s[2] >> k) & 0x01) << 2);
-            uint16_t sign = (x[11] >> k) & 0x01;
-            op->coeffs[i + k] = (((-sign) ^ op->coeffs[i + k]) + sign)
-                                << _16_LOG_Q;
-        }
-#endif
-#ifdef NOISE_D4
-        s[0] = (x[0] & x[1] & ~x[2] & x[3] & x[4] & ~x[6] & x[7] & ~x[9]) |
-               (x[2] & x[3] & x[4] & ~x[5] & ~x[6] & x[7] & ~x[9]) |
-               (~x[2] & ~x[3] & ~x[4] & ~x[5] & ~x[7] & x[8]) |
-               (~x[1] & ~x[3] & ~x[4] & ~x[5] & ~x[7] & x[8]) |
-               (~x[0] & ~x[3] & ~x[4] & ~x[5] & ~x[7] & x[8]) |
-               (x[0] & ~x[2] & x[3] & x[5] & ~x[6] & x[8]) |
-               (x[1] & ~x[2] & x[3] & x[5] & ~x[6] & x[8]) |
-               (x[2] & x[3] & ~x[4] & x[5] & ~x[6] & x[8]) |
-               (x[0] & x[1] & x[4] & x[5] & x[7] & x[9]) |
-               (x[2] & ~x[3] & x[4] & x[6] & x[7] & x[9]) |
-               (~x[2] & x[3] & x[4] & x[6] & x[7] & x[9]) |
-               (~x[3] & x[5] & ~x[6] & x[7] & ~x[9]) |
-               (x[0] & x[2] & x[5] & x[7] & ~x[8]) |
-               (x[1] & x[2] & x[5] & x[7] & ~x[8]) |
-               (x[4] & x[5] & ~x[6] & x[7] & x[9]) |
-               (~x[4] & ~x[5] & x[6] & x[7] & x[9]) |
-               (~x[2] & ~x[5] & x[6] & x[7] & x[9]) |
-               (x[3] & x[5] & x[7] & ~x[8]) | (~x[5] & ~x[6] & x[8] & ~x[9]) |
-               (~x[2] & ~x[6] & x[8] & ~x[9]) | (x[6] & x[7] & ~x[8]) |
-               (~x[7] & x[8] & ~x[9]) | (~x[6] & ~x[7] & x[8]);
-        s[1] = (x[2] & x[3] & x[4] & x[5] & x[7] & x[8] & ~x[9]) |
-               (x[2] & x[3] & x[4] & ~x[5] & x[6] & x[7] & x[9]) |
-               (~x[2] & ~x[3] & ~x[4] & ~x[5] & ~x[7] & x[9]) |
-               (~x[1] & ~x[3] & ~x[4] & ~x[5] & ~x[7] & x[9]) |
-               (~x[0] & ~x[3] & ~x[4] & ~x[5] & ~x[7] & x[9]) |
-               (~x[4] & x[5] & x[6] & x[7] & x[9]) |
-               (~x[3] & x[5] & x[6] & x[7] & x[9]) |
-               (~x[2] & x[5] & x[6] & x[7] & x[9]) |
-               (x[6] & x[7] & x[8] & ~x[9]) | (~x[6] & ~x[7] & x[9]) |
-               (~x[8] & x[9]);
-        s[2] = (x[0] & x[1] & x[2] & ~x[3] & x[6] & x[8] & x[9]) |
-               (x[3] & x[6] & ~x[7] & x[8] & x[9]) |
-               (x[4] & ~x[5] & x[6] & x[8] & x[9]) |
-               (~x[3] & x[5] & x[6] & x[8] & x[9]) |
-               (~x[6] & x[7] & x[8] & x[9]) | (~x[4] & x[7] & x[8] & x[9]) |
-               (~x[2] & x[7] & x[8] & x[9]);
-        s[3] = (x[2] & x[3] & x[4] & x[5] & x[6] & x[7] & x[8] & x[9]);
-        for (k = 0; k < 64; ++k) {
-            op->coeffs[i + k] =
-                ((s[0] >> k) & 0x01) | (((s[1] >> k) & 0x01) << 1) |
-                (((s[2] >> k) & 0x01) << 2) | (((s[3] >> k) & 0x01) << 3);
-            uint16_t sign = (x[10] >> k) & 0x01;
-            op->coeffs[i + k] = (((-sign) ^ op->coeffs[i + k]) + sign)
-                                << _16_LOG_Q;
-        }
-#endif
-        j += RAND_BITS;
+        j += SMAUGT_DG_RAND_BITS;
     }
-
     return 0;
 }
 
-void addGaussianErrorVec(polyvec *op, const uint8_t seed[CRYPTO_BYTES]) {
+/*************************************************
+ * Name:        d_gaussian
+ *
+ * Description: Given an array of seed bytes, compute
+ *              polynomial with coefficients sampled from a discrete gaussian
+ * distribution
+ *
+ * Arguments:   - polyvec *op: pointer to output polynomial vector
+ *              - const uint8_t seed[SMAUGT_CRYPTO_BYTES]: pointer to input byte
+ * array
+ *
+ * Specification: Implements @[KS X 123456, Algorithm 10, dGaussian]
+ **************************************************/
+void d_gaussian(polyvec *op, const uint8_t seed[SMAUGT_CRYPTO_BYTES]) {
     unsigned int i;
-    uint8_t extseed[CRYPTO_BYTES + 1] = {0};
-    memcpy(extseed, seed, CRYPTO_BYTES);
-    for (i = 0; i < MODULE_RANK; ++i) {
-        extseed[CRYPTO_BYTES] = MODULE_RANK * i;
-        addGaussianError(&(op->vec[i]), extseed);
+    uint8_t extseed[SMAUGT_CRYPTO_BYTES + 1] = {0};
+    memcpy(extseed, seed, SMAUGT_CRYPTO_BYTES);
+    for (i = 0; i < SMAUGT_K; ++i) {
+        extseed[SMAUGT_CRYPTO_BYTES] = SMAUGT_K * i;
+        d_gaussian_poly(&(op->vec[i]), extseed);
     }
 }

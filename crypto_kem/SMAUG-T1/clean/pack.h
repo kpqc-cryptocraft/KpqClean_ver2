@@ -1,47 +1,78 @@
-#ifndef SMAUG_PACK_H
-#define SMAUG_PACK_H
+// SPDX-License-Identifier: MIT
+
+#ifndef SMAUGT_PACK_H
+#define SMAUGT_PACK_H
+
+#include "ciphertext.h"
+#include "key.h"
+#include "params.h"
+#include "poly.h"
 
 #include <stdint.h>
-#include <stdio.h>
-#include <string.h>
 
-#include "parameters.h"
-#include "poly.h"
-#include "verify.h"
+#define pack_enck SMAUGT_NAMESPACE(pack_enck)
+#define unpack_enck SMAUGT_NAMESPACE(unpack_enck)
 
-#define DATA_OFFSET 16
+#define pack_deck SMAUGT_NAMESPACE(pack_deck)
+#define unpack_deck SMAUGT_NAMESPACE(unpack_deck)
 
-#define Rq_to_bytes SMAUG_NAMESPACE(Rq_to_bytes)
-void Rq_to_bytes(uint8_t bytes[PKPOLY_BYTES], const poly *data);
-#define bytes_to_Rq SMAUG_NAMESPACE(bytes_to_Rq)
-void bytes_to_Rq(poly *data, const uint8_t bytes[PKPOLY_BYTES]);
-#define Rq_vec_to_bytes SMAUG_NAMESPACE(Rq_vec_to_bytes)
-void Rq_vec_to_bytes(uint8_t bytes[PKPOLYVEC_BYTES], const polyvec *data);
-#define bytes_to_Rq_vec SMAUG_NAMESPACE(bytes_to_Rq_vec)
-void bytes_to_Rq_vec(polyvec *data, const uint8_t bytes[PKPOLYVEC_BYTES]);
-#define Rq_mat_to_bytes SMAUG_NAMESPACE(Rq_mat_to_bytes)
-void Rq_mat_to_bytes(uint8_t bytes[PKPOLYMAT_BYTES],
-                     const polyvec data[MODULE_RANK]);
-#define bytes_to_Rq_mat SMAUG_NAMESPACE(bytes_to_Rq_mat)
-void bytes_to_Rq_mat(polyvec data[MODULE_RANK],
-                     const uint8_t bytes[PKPOLYMAT_BYTES]);
+#define pack_s_poly SMAUGT_NAMESPACE(pack_s_poly)
+#define unpack_s_poly SMAUGT_NAMESPACE(unpack_s_poly)
 
-#define Rp_to_bytes SMAUG_NAMESPACE(Rp_to_bytes)
-void Rp_to_bytes(uint8_t bytes[CTPOLY1_BYTES], const poly *data);
-#define bytes_to_Rp SMAUG_NAMESPACE(bytes_to_Rp)
-void bytes_to_Rp(poly *data, const uint8_t bytes[CTPOLY1_BYTES]);
-#define Rp2_to_bytes SMAUG_NAMESPACE(Rp2_to_bytes)
-void Rp2_to_bytes(uint8_t bytes[CTPOLY2_BYTES], const poly *data);
-#define bytes_to_Rp2 SMAUG_NAMESPACE(bytes_to_Rp2)
-void bytes_to_Rp2(poly *data, const uint8_t bytes[CTPOLY2_BYTES]);
-#define Rp_vec_to_bytes SMAUG_NAMESPACE(Rp_vec_to_bytes)
-void Rp_vec_to_bytes(uint8_t bytes[CTPOLYVEC_BYTES], const polyvec *data);
-#define bytes_to_Rp_vec SMAUG_NAMESPACE(bytes_to_Rp_vec)
-void bytes_to_Rp_vec(polyvec *data, const uint8_t bytes[CTPOLYVEC_BYTES]);
+#define pack_ct SMAUGT_NAMESPACE(pack_ct)
+#define unpack_ct SMAUGT_NAMESPACE(unpack_ct)
 
-#define Sx_to_bytes SMAUG_NAMESPACE(Sx_to_bytes)
-void Sx_to_bytes(uint8_t *bytes, const poly *data);
-#define bytes_to_Sx SMAUG_NAMESPACE(bytes_to_Sx)
-void bytes_to_Sx(poly *data, const uint8_t *bytes);
+#define pack_ring SMAUGT_NAMESPACE(pack_ring)
+#define unpack_ring SMAUGT_NAMESPACE(unpack_ring)
 
-#endif // SMAUG_PACK_H
+#define pack_ring_p SMAUGT_NAMESPACE(pack_ring_p)
+#define unpack_ring_p SMAUGT_NAMESPACE(unpack_ring_p)
+
+#define pack_ring_p_prime SMAUGT_NAMESPACE(pack_ring_p_prime)
+#define unpack_ring_p_prime SMAUGT_NAMESPACE(unpack_ring_p_prime)
+
+#define pack_ring_vec SMAUGT_NAMESPACE(pack_ring_vec)
+#define unpack_ring_vec SMAUGT_NAMESPACE(unpack_ring_vec)
+
+#define pack_ring_p_vec SMAUGT_NAMESPACE(pack_ring_p_vec)
+#define unpack_ring_p_vec SMAUGT_NAMESPACE(unpack_ring_p_vec)
+
+#define pack_ring_mat SMAUGT_NAMESPACE(pack_ring_mat)
+#define unpack_ring_mat SMAUGT_NAMESPACE(unpack_ring_mat)
+
+void pack_enck(uint8_t *output, const public_key *pk);
+void unpack_enck(public_key *pk, const uint8_t *input);
+
+void pack_deck(uint8_t *output, const secret_key *sk);
+void unpack_deck(secret_key *sk, const uint8_t *input);
+
+void pack_s_poly(uint8_t *bytes, const poly *data);
+void unpack_s_poly(poly *data, const uint8_t *bytes);
+
+void pack_ct(uint8_t *output, const ciphertext *ctxt);
+void unpack_ct(ciphertext *ctxt, const uint8_t *input);
+
+void pack_ring(uint8_t bytes[SMAUGT_PKPOLY_BYTES], const poly *data);
+void unpack_ring(poly *data, const uint8_t bytes[SMAUGT_PKPOLY_BYTES]);
+
+void pack_ring_p(uint8_t bytes[SMAUGT_CTPOLY1_BYTES], const poly *data);
+void unpack_ring_p(poly *data, const uint8_t bytes[SMAUGT_CTPOLY1_BYTES]);
+
+void pack_ring_p_prime(uint8_t bytes[SMAUGT_CTPOLY2_BYTES], const poly *data);
+void unpack_ring_p_prime(poly *data, const uint8_t bytes[SMAUGT_CTPOLY2_BYTES]);
+
+void pack_ring_vec(uint8_t bytes[SMAUGT_PKPOLYVEC_BYTES], const polyvec *data);
+void unpack_ring_vec(polyvec *data,
+                     const uint8_t bytes[SMAUGT_PKPOLYVEC_BYTES]);
+
+void pack_ring_p_vec(uint8_t bytes[SMAUGT_CTPOLYVEC_BYTES],
+                     const polyvec *data);
+void unpack_ring_p_vec(polyvec *data,
+                       const uint8_t bytes[SMAUGT_CTPOLYVEC_BYTES]);
+
+void pack_ring_mat(uint8_t bytes[SMAUGT_PKPOLYMAT_BYTES],
+                   const polyvec data[SMAUGT_K]);
+void unpack_ring_mat(polyvec data[SMAUGT_K],
+                     const uint8_t bytes[SMAUGT_PKPOLYMAT_BYTES]);
+
+#endif /* !SMAUGT_PACK_H */

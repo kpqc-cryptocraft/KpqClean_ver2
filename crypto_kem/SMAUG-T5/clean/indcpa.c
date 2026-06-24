@@ -1,97 +1,119 @@
+// SPDX-License-Identifier: MIT
+
 #include "indcpa.h"
 #include "cbd.h"
+#include "fips202.h"
+#include "pack.h"
 #include "randombytes.h"
+#include "verify.h"
+
+#include <string.h>
 
 /*************************************************
- * Name:        genRx_vec
+ * Name:        expand_r
  *
  * Description: Deterministically generate a vector of sparse polynomial r(x)
  *              from a seed.
  *
  * Arguments:   - polyvec *r: pointer to ouptput vector r
- *              - uint8_t *input: pointer to input seed (of length input_size)
+ *              - uint8_t *seed: pointer to input seed (of length
+ * SMAUGT_DELTA_BYTES)
+ *
+ * Specification: Implements @[KS X 123456, Algorithm 5, ExpandR]
  **************************************************/
-void genRx_vec(polyvec *r, const uint8_t *input) {
+void expand_r(polyvec *r, const uint8_t *seed) {
     unsigned int i;
-    uint8_t buf[CBDSEED_BYTES] = {0};
+    uint8_t buf[SMAUGT_CBDSEED_BYTES] = {0};
 
-    for (i = 0; i < MODULE_RANK; ++i) {
-        uint8_t extseed[DELTA_BYTES + 1];
-        memcpy(extseed, input, DELTA_BYTES);
-        extseed[DELTA_BYTES] = i;
+    for (i = 0; i < SMAUGT_K; ++i) {
+        uint8_t extseed[SMAUGT_DELTA_BYTES + 1];
+        memcpy(extseed, seed, SMAUGT_DELTA_BYTES);
+        extseed[SMAUGT_DELTA_BYTES] = i;
 
-        shake256(buf, CBDSEED_BYTES, extseed, DELTA_BYTES + 1);
-        poly_cbd(&r->vec[i], buf);
+        shake256(buf, SMAUGT_CBDSEED_BYTES, extseed, SMAUGT_DELTA_BYTES + 1);
+        sp_cbd(&r->vec[i], buf);
     }
 }
 
 /*************************************************
  * Name:        indcpa_keypair
  *
- * Description: Generates public and private key for the CPA-secure
- *              Module-Lizard public-key encryption scheme.
+ * Description: Generates a public key and a private key deterministically
+ *              from the given randomness seed.
+ *              Key generation function of the CPA-secure Module-Lizard
+ *              public-key encryption scheme.
  *
- * Arguments:   - public_key *pk: pointer to output public key
- *                (a structure composed of (seed of A, matrix A, vector b))
- *              - secret_key *sk: pointer to output private key
- *                (a structure composed of (vector s, t, vector negstart))
+ * Arguments:   - uint8_t pk[SMAUGT_PUBLICKEY_BYTES]: pointer to output public
+ *              key
+ *              - uint8_t sk[SMAUGT_PKE_SECRETKEY_BYTES]: pointer to output
+ *              private key
+ *              - uint8_t seed[SMAUGT_CRYPTO_BYTES]: pointer to input seed
+ *
+ * Specification: Implements @[KS X 123456, Algorithm 25, SMAUGT-T.PKE.KeyGen]
  **************************************************/
-void indcpa_keypair(uint8_t pk[PUBLICKEY_BYTES],
-                    uint8_t sk[PKE_SECRETKEY_BYTES]) {
+void indcpa_keypair(uint8_t pk[SMAUGT_PUBLICKEY_BYTES],
+                    uint8_t sk[SMAUGT_PKE_SECRETKEY_BYTES],
+                    const uint8_t seed[SMAUGT_CRYPTO_BYTES]) {
     public_key pk_tmp;
     secret_key sk_tmp;
     memset(&pk_tmp, 0, sizeof(public_key));
     memset(&sk_tmp, 0, sizeof(secret_key));
 
-    uint8_t seed[CRYPTO_BYTES + PKSEED_BYTES] = {0};
-    randombytes(seed, CRYPTO_BYTES);
-#if CRYPTO_BYTES + PKSEED_BYTES != 64
-#error "This implementation assumes CRYPTO_BYTES + PKSEED_BYTES to be 64"
+    uint8_t extseed[SMAUGT_CRYPTO_BYTES + SMAUGT_PKSEED_BYTES] = {0};
+#if SMAUGT_CRYPTO_BYTES + SMAUGT_PKSEED_BYTES != 64
+#error                                                                         \
+    "This implementation assumes SMAUGT_CRYPTO_BYTES + SMAUGT_PKSEED_BYTES to be 64"
 #endif
-    sha3_512(seed, seed, CRYPTO_BYTES);
+    sha3_512(extseed, seed, SMAUGT_CRYPTO_BYTES);
 
-    genSx_vec(&sk_tmp, seed);
+    expand_s(&sk_tmp, extseed);
 
-    memcpy(&pk_tmp.seed, seed + CRYPTO_BYTES, PKSEED_BYTES);
-    genPubkey(&pk_tmp, &sk_tmp, seed);
+    memcpy(&pk_tmp.seed, extseed + SMAUGT_CRYPTO_BYTES, SMAUGT_PKSEED_BYTES);
+    gen_pub_key(&pk_tmp, &sk_tmp, extseed);
 
-    memset(pk, 0, PUBLICKEY_BYTES);
-    memset(sk, 0, PKE_SECRETKEY_BYTES);
-    save_to_string_pk(pk, &pk_tmp);
-    save_to_string_sk(sk, &sk_tmp);
+    memset(pk, 0, SMAUGT_PUBLICKEY_BYTES);
+    memset(sk, 0, SMAUGT_PKE_SECRETKEY_BYTES);
+    pack_enck(pk, &pk_tmp);
+    pack_deck(sk, &sk_tmp);
 }
 
 /*************************************************
  * Name:        indcpa_enc
  *
- * Description: Encryption function of the CPA-secure
- *              Module-Lizard public-key encryption scheme.
+ * Description: Generates the ciphertext ctxt deterministically
+ *              by encrypting the given message mu
+ *              with the provided public key pk and the given randomness seed.
+ *              Encryption function of the CPA-secure Module-Lizard public-key
+ *              encryption scheme.
  *
- * Arguments:   - ciphertext *ctxt: pointer to output ciphertext
- *                (a structure composed of (vector c1, c2))
- *              - public_key *pk: pointer to input public key
- *                (a structure composed of (seed of A, matrix A, vector b))
- *              - uint8_t *delta: pointer to input random delta (of length
- *                DELTA_BYTES) to deterministically generate all randomness
+ * Arguments:   - uint8_t ctxt[SMAUGT_CIPHERTEXT_BYTES]: pointer to output
+ *              ciphertext
+ *              - const uint8_t pk[SMAUGT_PUBLICKEY_BYTES]: pointer to input
+ *              public key
+ *              - const uint8_t mu[SMAUGT_MSG_BYTES]: pointer to input plaintext
+ *              message
+ *              - const uint8_t seed[SMAUGT_DELTA_BYTES]: pointer to input seed
+ *
+ * Specification: Implements @[KS X 123456, Algorithm 26, SMAUGT-T.PKE.Enc]
  **************************************************/
-void indcpa_enc(uint8_t ctxt[CIPHERTEXT_BYTES],
-                const uint8_t pk[PUBLICKEY_BYTES],
-                const uint8_t mu[DELTA_BYTES],
-                const uint8_t seed[DELTA_BYTES]) {
+void indcpa_enc(uint8_t ctxt[SMAUGT_CIPHERTEXT_BYTES],
+                const uint8_t pk[SMAUGT_PUBLICKEY_BYTES],
+                const uint8_t mu[SMAUGT_MSG_BYTES],
+                const uint8_t seed[SMAUGT_DELTA_BYTES]) {
 
-    uint8_t seed_r[DELTA_BYTES] = {0};
+    uint8_t seed_r[SMAUGT_DELTA_BYTES] = {0};
     public_key pk_tmp;
-    load_from_string_pk(&pk_tmp, pk);
+    unpack_enck(&pk_tmp, pk);
 
     // Compute a vector r = hwt(delta, H'(pk))
     polyvec r;
     memset(&r, 0, sizeof(polyvec));
 
     if (seed == NULL)
-        randombytes(seed_r, DELTA_BYTES);
+        randombytes(seed_r, SMAUGT_DELTA_BYTES);
     else
-        cmov(seed_r, seed, DELTA_BYTES, 1);
-    genRx_vec(&r, seed_r);
+        cmov(seed_r, seed, SMAUGT_DELTA_BYTES, 1);
+    expand_r(&r, seed_r);
 
     // Compute c1(x), c2(x)
     ciphertext ctxt_tmp;
@@ -99,59 +121,67 @@ void indcpa_enc(uint8_t ctxt[CIPHERTEXT_BYTES],
     computeC1(&(ctxt_tmp.c1), pk_tmp.A, &r);
     computeC2(&(ctxt_tmp.c2), mu, &pk_tmp.b, &r);
 
-    save_to_string(ctxt, &ctxt_tmp);
+    pack_ct(ctxt, &ctxt_tmp);
 }
 
 /*************************************************
  * Name:        indcpa_dec
  *
- * Description: Decryption function of the CPA-secure
- *              Module-Lizard public-key encryption scheme.
+ * Description: Generates the plaintext message mu deterministically
+ *              by decrypting the given ciphertext ctxt with the provided
+ *              private key sk. Decryption function of the CPA-secure
+ * Module-Lizard public-key encryption scheme.
  *
- * Arguments:   - uint8_t *delta: pointer to output decrypted delta
- *                (of length DELTA_BYTES), assumed to be already initialized
- *              - secret_key *sk: pointer to input private key
- *                (a structure composed of (vector s, t, vector negstart)
- *              - ciphertext *ctxt: pointer to input ciphertext
- *                (a structure composed of (vector c1, c2))
+ * Arguments:   - uint8_t mu[SMAUGT_MSG_BYTES]: pointer to output plaintext
+ *              message
+ *              - const uint8_t sk[SMAUGT_PKE_SECRETKEY_BYTES]: pointer to input
+ *              private key
+ *              - const uint8_t ctxt[SMAUGT_CIPHERTEXT_BYTES]: pointer to input
+ *              ciphertext
+ *
+ * Specification: Implements @[KS X 123456, Algorithm 28, SMAUGT-T.PKE.Dec]
  **************************************************/
-void indcpa_dec(uint8_t delta[DELTA_BYTES],
-                const uint8_t sk[PKE_SECRETKEY_BYTES],
-                const uint8_t ctxt[CIPHERTEXT_BYTES]) {
-    poly delta_temp;
-    polyvec c1_temp;
+void indcpa_dec(uint8_t mu[SMAUGT_MSG_BYTES],
+                const uint8_t sk[SMAUGT_PKE_SECRETKEY_BYTES],
+                const uint8_t ctxt[SMAUGT_CIPHERTEXT_BYTES]) {
+    poly delta;
+    polyvec c1;
 
     secret_key sk_tmp;
     memset(&sk_tmp, 0, sizeof(secret_key));
-    load_from_string_sk(&sk_tmp, sk);
+    unpack_deck(&sk_tmp, sk);
 
     ciphertext ctxt_tmp;
-    load_from_string(&ctxt_tmp, ctxt);
+    unpack_ct(&ctxt_tmp, ctxt);
 
     unsigned int i, j;
-    c1_temp = ctxt_tmp.c1;
-    delta_temp = ctxt_tmp.c2;
-    for (i = 0; i < LWE_N; ++i)
-        delta_temp.coeffs[i] <<= _16_LOG_P2;
-    for (i = 0; i < MODULE_RANK; ++i)
-        for (j = 0; j < LWE_N; ++j)
-            c1_temp.vec[i].coeffs[j] <<= _16_LOG_P;
+    c1 = ctxt_tmp.c1;
+    delta = ctxt_tmp.c2;
+    for (i = 0; i < SMAUGT_N; ++i)
+        delta.coeffs[i] <<= SMAUGT_MODULUS_16_LOG_P_PRIME;
+    for (i = 0; i < SMAUGT_K; ++i)
+        for (j = 0; j < SMAUGT_N; ++j)
+            c1.vec[i].coeffs[j] <<= SMAUGT_MODULUS_16_LOG_P;
 
     // Compute delta = (delta + c1^T * s)
-    vec_vec_mult_add(&delta_temp, &c1_temp, &sk_tmp, _16_LOG_P);
+    vec_vec_mult_add(&delta, &c1, &sk_tmp, SMAUGT_MODULUS_16_LOG_P);
 
+#if SMAUGT_MODE == SMAUGT_MODET
+    d2_dcd(mu, &delta); // EDIT TiMER
+#else
     // Compute delta = 2/p * delta
-    for (i = 0; i < LWE_N; ++i) {
-        delta_temp.coeffs[i] += DEC_ADD;
-        delta_temp.coeffs[i] >>= _16_LOG_T;
-        delta_temp.coeffs[i] &= 0x01;
+    for (i = 0; i < SMAUGT_N; ++i) {
+        delta.coeffs[i] += SMAUGT_DEC_ADD;
+        delta.coeffs[i] >>= SMAUGT_MODULUS_16_LOG_T;
+        delta.coeffs[i] &= 0x01;
     }
 
     // Set delta
-    memset(delta, 0, DELTA_BYTES);
-    for (i = 0; i < DELTA_BYTES; ++i) {
+    memset(mu, 0, SMAUGT_MSG_BYTES);
+    for (i = 0; i < SMAUGT_MSG_BYTES; ++i) {
         for (j = 0; j < 8; ++j) {
-            delta[i] ^= ((uint8_t)(delta_temp.coeffs[8 * i + j]) << j);
+            mu[i] ^= ((uint8_t)(delta.coeffs[8 * i + j]) << j);
         }
     }
+#endif
 }

@@ -1,29 +1,33 @@
-#ifndef SMAUG_IND_CPA_PKE_H
-#define SMAUG_IND_CPA_PKE_H
+// SPDX-License-Identifier: MIT
 
-#include "ciphertext.h"
-#include "hash.h"
-#include "hwt.h"
-#include "io.h"
-#include "key.h"
-#include "parameters.h"
-#include "verify.h"
+#ifndef SMAUGT_INDCPA_H
+#define SMAUGT_INDCPA_H
 
-#define genRx_vec SMAUG_NAMESPACE(genRx_vec)
-void genRx_vec(polyvec *r, const uint8_t *input);
+#include "params.h"
+#include "poly.h"
 
-#define indcpa_keypair SMAUG_NAMESPACE(indcpa_keypair)
-void indcpa_keypair(uint8_t pk[PUBLICKEY_BYTES],
-                    uint8_t sk[PKE_SECRETKEY_BYTES]);
+#include <stdint.h>
 
-#define indcpa_enc SMAUG_NAMESPACE(indcpa_enc)
-void indcpa_enc(uint8_t ctxt[CIPHERTEXT_BYTES],
-                const uint8_t pk[PUBLICKEY_BYTES],
-                const uint8_t mu[DELTA_BYTES], const uint8_t seed[DELTA_BYTES]);
+#define SMAUGT_DEC_ADD 0x4000 // 2^(15 - SMAUGT_LOG_T)
 
-#define indcpa_dec SMAUG_NAMESPACE(indcpa_dec)
-void indcpa_dec(uint8_t delta[DELTA_BYTES],
-                const uint8_t sk[PKE_SECRETKEY_BYTES],
-                const uint8_t ctxt[CIPHERTEXT_BYTES]);
+#define expand_r SMAUGT_NAMESPACE(expand_r)
+#define indcpa_keypair SMAUGT_NAMESPACE(indcpa_keypair)
+#define indcpa_enc SMAUGT_NAMESPACE(indcpa_enc)
+#define indcpa_dec SMAUGT_NAMESPACE(indcpa_dec)
 
-#endif // SMAUG_IND_CPA_PKE_H
+void expand_r(polyvec *r, const uint8_t *seed);
+
+void indcpa_keypair(uint8_t pk[SMAUGT_PUBLICKEY_BYTES],
+                    uint8_t sk[SMAUGT_PKE_SECRETKEY_BYTES],
+                    const uint8_t seed[SMAUGT_CRYPTO_BYTES]);
+
+void indcpa_enc(uint8_t ctxt[SMAUGT_CIPHERTEXT_BYTES],
+                const uint8_t pk[SMAUGT_PUBLICKEY_BYTES],
+                const uint8_t mu[SMAUGT_MSG_BYTES],
+                const uint8_t seed[SMAUGT_DELTA_BYTES]);
+
+void indcpa_dec(uint8_t mu[SMAUGT_MSG_BYTES],
+                const uint8_t sk[SMAUGT_PKE_SECRETKEY_BYTES],
+                const uint8_t ctxt[SMAUGT_CIPHERTEXT_BYTES]);
+
+#endif /* !SMAUGT_INDCPA_H */

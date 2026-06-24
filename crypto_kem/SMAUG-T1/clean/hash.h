@@ -1,24 +1,24 @@
-#ifndef SMAUG_HASH_H
-#define SMAUG_HASH_H
+// SPDX-License-Identifier: MIT
 
-#include "fips202.h"
-#include "parameters.h"
+#ifndef SMAUGT_HASH_H
+#define SMAUGT_HASH_H
 
+#include "params.h"
+
+#include <stddef.h>
+#include <stdint.h>
 
 #define SHA3_256_HashSize 32
 #define SHA3_512_HashSize 64
 
-#define hash_h(OUT, IN, INBYTES) sha3_256(OUT, IN, INBYTES)
-#define hash_g(OUT, OUTBYTES, IN1, IN1BYTES, IN2, IN2BYTES)                    \
-    shake256_absorb_twice_squeeze(OUT, OUTBYTES, IN1, IN1BYTES, IN2, IN2BYTES)
-
+#define hash_h(OUT, IN, INLEN) sha3_256(OUT, IN, INLEN)
+#define hash_g(OUT, OUTLEN, IN1, INLEN1, IN2, INLEN2)                          \
+    shake256_absorb_twice_squeeze(OUT, OUTLEN, IN1, INLEN1, IN2, INLEN2)
 #define shake256_absorb_twice_squeeze                                          \
-    SMAUG_NAMESPACE(shake256_absorb_twice_squeeze)
-void shake256_absorb_twice_squeeze(uint8_t *out, size_t out_bytes,
-                                   const uint8_t *in1, size_t in1_bytes,
-                                   const uint8_t *in2, size_t in2_bytes);
-#define shake256_absorb_once                                          \
-    SMAUG_NAMESPACE(shake256_absorb_once)
-void shake256_absorb_once(shake256incctx *state, const uint8_t *in1, size_t in1_bytes);
+    SMAUGT_NAMESPACE(shake256_absorb_twice_squeeze)
 
-#endif // SMAUG_HASH_H
+void shake256_absorb_twice_squeeze(uint8_t *out, size_t outlen,
+                                   const uint8_t *in1, size_t inlen1,
+                                   const uint8_t *in2, size_t inlen2);
+
+#endif /* !SMAUGT_HASH_H */

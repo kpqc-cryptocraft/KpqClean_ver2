@@ -1,16 +1,19 @@
+// SPDX-License-Identifier: MIT
+
 #include "toomcook.h"
 #include <stdint.h>
 #include <string.h>
 
 #define SCHB_N 16
 
-#define N_RES (LWE_N << 1)
-#define N_SB (LWE_N >> 2)
+#define N_RES (SMAUGT_N << 1)
+#define N_SB (SMAUGT_N >> 2)
 #define N_SB_RES (2 * N_SB - 1)
 
 #define OVERFLOWING_MUL(X, Y) ((uint16_t)((uint32_t)(X) * (uint32_t)(Y)))
 
 #define KARATSUBA_N 64
+#define karatsuba_simple SMAUGT_NAMESPACE(karatsuba_simple)
 static void karatsuba_simple(const uint16_t *a_1, const uint16_t *b_1,
                              uint16_t *result_final) {
     uint16_t d01[KARATSUBA_N / 2 - 1];
@@ -115,6 +118,7 @@ static void karatsuba_simple(const uint16_t *a_1, const uint16_t *b_1,
     }
 }
 
+#define toom_cook_4way SMAUGT_NAMESPACE(toom_cook_4way)
 static void toom_cook_4way(const uint16_t *a1, const uint16_t *b1,
                            uint16_t *result) {
     uint16_t inv3 = 43691, inv9 = 36409, inv15 = 61167;
@@ -238,15 +242,15 @@ static void toom_cook_4way(const uint16_t *a1, const uint16_t *b1,
 }
 
 /* res += a*b */
-void poly_mul_acc(const int16_t a[LWE_N], const int16_t b[LWE_N],
-                  int16_t res[LWE_N]) {
-    uint16_t c[2 * LWE_N] = {0};
+void poly_mul_acc(const int16_t a[SMAUGT_N], const int16_t b[SMAUGT_N],
+                  int16_t res[SMAUGT_N]) {
+    uint16_t c[2 * SMAUGT_N] = {0};
     int i;
 
     toom_cook_4way((uint16_t *)a, (uint16_t *)b, c);
 
     /* reduction */
-    for (i = LWE_N; i < 2 * LWE_N; i++) {
-        res[i - LWE_N] += (c[i - LWE_N] - c[i]);
+    for (i = SMAUGT_N; i < 2 * SMAUGT_N; i++) {
+        res[i - SMAUGT_N] += (c[i - SMAUGT_N] - c[i]);
     }
 }

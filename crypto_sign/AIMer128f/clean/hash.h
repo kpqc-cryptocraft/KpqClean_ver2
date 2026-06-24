@@ -8,14 +8,18 @@
 #include <stddef.h>
 #include <stdint.h>
 
-static const uint8_t HASH_PREFIX_0 = 0;
+static const uint8_t HASH_PREFIX_0 = (uint8_t)AIMER_HASH_PREFIX_0;
 static const uint8_t HASH_PREFIX_1 = 1;
 static const uint8_t HASH_PREFIX_2 = 2;
 static const uint8_t HASH_PREFIX_3 = 3;
 static const uint8_t HASH_PREFIX_4 = 4;
 static const uint8_t HASH_PREFIX_5 = 5;
 
+#if SECURITY_BITS == 128
 typedef shake128incctx hash_instance;
+#else
+typedef shake256incctx hash_instance;
+#endif
 
 #define hash_init AIMER_NAMESPACE(hash_init)
 void hash_init(hash_instance *ctx);
@@ -27,8 +31,6 @@ void hash_update(hash_instance *ctx, const uint8_t *data, size_t data_len);
 void hash_final(hash_instance *ctx);
 #define hash_squeeze AIMER_NAMESPACE(hash_squeeze)
 void hash_squeeze(hash_instance *ctx, uint8_t *buffer, size_t buffer_len);
-#define hash_ctx_clone AIMER_NAMESPACE(hash_ctx_clone)
-void hash_ctx_clone(hash_instance *ctx_dest, const hash_instance *ctx_src);
 #define hash_ctx_release AIMER_NAMESPACE(hash_ctx_release)
 void hash_ctx_release(hash_instance *ctx);
 
