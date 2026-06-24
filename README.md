@@ -16,8 +16,8 @@ The four algorithms below have been selected as the final standardized KpqC algo
 
 | Algorithm | Variant | Reference version | Source |
 |---|---|---|---|
-| **NTRU+** | KEM 768 / 864 / 1152 | commit `621c667` (2026-03-19) | <https://github.com/ntruplus/ntruplus/tree/main> |
-| **SMAUG-T** | KEM mode 1 / 3 / 5 | v1.2.0 `bbc463c` (code 2026-05-21) | <https://github.com/CryptoLabInc/SMAUG-T.git> |
+| **NTRU+** | 768 / 864 / 1152 | commit `621c667` (2026-03-19) | <https://github.com/ntruplus/ntruplus/tree/main> |
+| **SMAUG-T** |mode 1 / 3 / 5 | v1.2.0 `bbc463c` (code 2026-05-21) | <https://github.com/CryptoLabInc/SMAUG-T.git> |
 | **AIMer** | 128f, 128s, 192f, 192s, 256f, 256s | `e47c497` (2026-01-30) | <https://github.com/samsungsds-research-papers/AIMer> |
 | **HAETAE** | mode 2 / 3 / 5 | v1.1.2 `743c31d` (2026-02-05)| <https://github.com/CryptoLabInc/HAETAE> |
 
